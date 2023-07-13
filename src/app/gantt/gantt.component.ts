@@ -4,6 +4,9 @@ import { LinkService } from '../services/link.service';
 import { GanttConfig } from '../services/gantt.init.service';
 import { GanttMarker } from '../services/gantt.marker';
 import { gantt } from 'dhtmlx-gantt';
+import { GanttZoom } from '../services/gantt.zoom.service';
+import { GanttHotkeys } from '../services/gantt.hotkeys.service';
+
 
 // import { GanttStatic, Gantt } from 'dhtmlx-gantt';
 // let gantt: GanttStatic;
@@ -34,7 +37,8 @@ export class GanttComponent implements OnInit, OnDestroy {
 
         GanttConfig(gantt)
         GanttMarker(gantt)
-
+        GanttZoom(gantt)
+        GanttHotkeys(gantt)
 
         gantt.init(this.ganttContainer.nativeElement);
 

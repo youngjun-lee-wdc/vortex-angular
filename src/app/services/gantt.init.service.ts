@@ -56,53 +56,6 @@ export function GanttConfig(gantt: GanttStatic): void{
         return "<div class='gantt_tree_icon fa-solid fa-hard-drive fa-lg'></div>";
     };
 
-    gantt.templates.tooltip_text = function(start,end,task){
-        const tooltips_data = {
-          "3":{
-            "Test Suite": task.text,
-            "Test Plan": task['test_plan_dropdown'],
-            "Firmware": task['FW_version'],
-            "Start Time": gantt.templates.tooltip_date_format(start),
-            "Duration": minutesToTime(gantt.calculateDuration(task)),
-            "Status": task['status'],
-          },
-          "2":{
-            "Drive Program": task.text.split("-")[0],
-            "Capacity": task.text.split("-")[1],
-            "Firmware": task.text.split("-")[2],
-            "Serial Number": task.id,
-          },
-          "1":{
-            "Server": task.text,
-          },
-          "0":{
-            "Location": task.text,
-          }
-        }
-  
-        let table  = "<table>"
-        const level = task.$level
-        for (let [key, value] of Object.entries(tooltips_data[level])){
-          table+= `<tr><td><b>${key}</b></td><td>: <td>${value}</td></tr>`
-        }
-        return table += "</table>"
-      };
-  
-  
-      gantt.config.columns=[
-        { 
-          name:"text", label:"Tests",  tree:true , width: "*",
-          template:function(task){
-            if(task.text.includes("VM-")){
-              return "<div style = 'direction:rtl; text-align: center; overflow: hidden'>"+task.text+"</div>"
-            }else{
-              return task.text
-            }}
-        },
-  
-        {name:"add", label:"" },
-  
-      ];
   
   
 }
