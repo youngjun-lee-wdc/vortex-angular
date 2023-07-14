@@ -11,4 +11,4 @@ export const minutesToTime = (minutes:number) => {
         return formattedHours + " hours " + formattedMinutes + " minutes" ;
     }    
     return formattedMinutes + " minutes" ;
-  };
+};

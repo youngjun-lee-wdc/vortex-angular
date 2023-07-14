@@ -7,6 +7,7 @@ import { gantt } from 'dhtmlx-gantt';
 import { GanttZoom } from '../services/gantt.zoom.service';
 import { GanttHotkeys } from '../services/gantt.hotkeys.service';
 import { GanttTooltips } from '../services/gantt.tooltips.service';
+import { GanttLightbox } from '../services/gantt.lightbox.service';
 
 
 // import { GanttStatic, Gantt } from 'dhtmlx-gantt';
@@ -41,6 +42,7 @@ export class GanttComponent implements OnInit, OnDestroy {
         GanttZoom(gantt)
         GanttHotkeys(gantt)
         GanttTooltips(gantt)
+        GanttLightbox(gantt)
 
         gantt.init(this.ganttContainer.nativeElement);
 

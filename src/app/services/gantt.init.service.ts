@@ -20,7 +20,7 @@ export function GanttConfig(gantt: GanttStatic): void{
     gantt.config.sort = true;  
     gantt.locale.labels["gantt_exit_btn"] = "";
     gantt.config.buttons_left = ["gantt_save_btn"];   
-    gantt.config.buttons_right = [ "gantt_delete_btn", "gantt_cancel_btn", "gantt_exit_btn"];
+    gantt.config.buttons_right = ["gantt_delete_btn", "gantt_cancel_btn", "gantt_exit_btn"];
     gantt.config.drag_timeline = {
         ignore:".gantt_task_line, .gantt_task_link",
         useKey: false
@@ -30,18 +30,37 @@ export function GanttConfig(gantt: GanttStatic): void{
     gantt.config.auto_types = true;
     gantt.config.auto_scheduling = true;
     gantt.config.auto_scheduling_compatibility = true;
+    gantt.config.columns=[
+        { 
+            name:"text", label:"Tests",  tree:true , width: "*",
+            template: (task) => {
+                if (task.text.includes("VM-")){
+                    return "<div style = 'direction:rtl; text-align: center; overflow: hidden'>"+task.text+"</div>"
+                }
+                return task.text
+            }
+        },
+        {name:"add", label:"" },
+    ];
+
+
+    
     // allows tasks to be shown linearly rather than in a tree hierarchy format going in diagonal direction
     // gantt.locale.labels.section_split = "Display";
     gantt.config.open_tree_initially = true;
     gantt.config.server_utc = true;
     // gantt.config.lightbox.project_sections = [];
     gantt.config.open_split_tasks = false;
+    gantt.templates.task_text = function(start, end, task){
+        return "<div style = 'direction:rtl; text-align: center; overflow: hidden'>"+task.text+"</div>";
+    };
 
     // constant variables to be used in sections like the lightbox sections
-    // gantt.locale.labels.section_test = 'Test Suite';
-    // gantt.locale.labels.section_test_plan_writein = 'Specify New Test Plan';
-    // gantt.locale.labels.section_test_plan_dropdown = 'Test Plan';
-    // gantt.locale.labels.section_FW_version = 'Firmware Version';
+    // constant variables to be used in sections like the lightbox sections
+    gantt.locale.labels['section_test'] = 'Test Suite';
+    gantt.locale.labels['section_test_plan_writein'] = 'Specify New Test Plan';
+    gantt.locale.labels['section_test_plan_dropdown'] = 'Test Plan';
+    gantt.locale.labels['section_FW_version'] = 'Firmware Version';
 
     gantt.templates.tooltip_date_format = (date: Date) => {
         let formatFunc = gantt.date.date_to_str("%Y-%m-%d %H:%i");
@@ -56,6 +75,13 @@ export function GanttConfig(gantt: GanttStatic): void{
         return "<div class='gantt_tree_icon fa-solid fa-hard-drive fa-lg'></div>";
     };
 
-  
+    gantt.templates.grid_row_class = ( start, end, task ) => {
+        let level = ""
+        if (task.$level != 2){
+            // returning nested_task allows css to target this class and hide it
+            level += "nested_task"
+        }
+        return level;
+      };
   
 }
