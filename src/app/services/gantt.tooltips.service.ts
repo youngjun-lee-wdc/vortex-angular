@@ -18,13 +18,6 @@ interface tooltipsFormat {
     }
 }
 
-
-const testObject: tooltipsFormat = {
-    "key":{
-        TestSuite: "test"
-    }
-}
-
 export function GanttTooltips(gantt: GanttStatic): void{
     gantt.templates.tooltip_text = (start, end, task) => {
         const tooltips_data: tooltipsFormat = {
@@ -60,16 +53,5 @@ export function GanttTooltips(gantt: GanttStatic): void{
         return table += "</table>"
       };
   
-    gantt.config.columns=[
-        { 
-            name:"text", label:"Tests",  tree:true , width: "*",
-            template: (task) => {
-                if (task.text.includes("VM-")){
-                    return "<div style = 'direction:rtl; text-align: center; overflow: hidden'>"+task.text+"</div>"
-                }
-                return task.text
-            }
-        },
-        {name:"add", label:"" },
-    ];
+
 }

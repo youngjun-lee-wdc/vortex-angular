@@ -6,9 +6,9 @@ export function GanttZoom(gantt: GanttStatic): void{
 
     const hourRangeFormat = (step: number) => {
         return (date: Date) => {
-            const ganttDate = Number(gantt.date.add(date, step, "hour")) - 1
-            const intervalEnd = new Date(ganttDate)
-            return hourToStr(date) + " - " + hourToStr(intervalEnd);
+          const ganttDate = Number(gantt.date.add(date, step, "hour")) - 1
+          const intervalEnd = new Date(ganttDate)
+          return hourToStr(date) + " - " + hourToStr(intervalEnd);
         };
     };
     gantt.config.min_column_width = 80;
@@ -75,9 +75,9 @@ export function GanttZoom(gantt: GanttStatic): void{
         // attaches this component to gantt_task
         element: () => { return gantt.$root.querySelector(".gantt_task")}
     }
-gantt.ext.zoom.init(zoomConfig);
-//set current level for start-up
-gantt.ext.zoom.setLevel(3);
+    gantt.ext.zoom.init(zoomConfig);
+    //set current level for start-up
+    gantt.ext.zoom.setLevel(2);
 }
 
 
