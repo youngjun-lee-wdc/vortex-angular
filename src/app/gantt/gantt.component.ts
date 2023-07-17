@@ -34,9 +34,8 @@ export class GanttComponent implements OnInit, OnDestroy {
         gantt.config.min_column_width = 120; 
         gantt.config.initial_scroll = false;
         gantt.config.sort = true;  
-        gantt.locale.labels["gantt_exit_btn"] = "";
         gantt.config.buttons_left = ["gantt_save_btn"];   
-        gantt.config.buttons_right = ["gantt_delete_btn", "gantt_cancel_btn", "gantt_exit_btn"];
+        gantt.config.buttons_right = ["gantt_delete_btn", "gantt_cancel_btn"];
         gantt.config.drag_timeline = {
             ignore:".gantt_task_line, .gantt_task_link",
             useKey: false

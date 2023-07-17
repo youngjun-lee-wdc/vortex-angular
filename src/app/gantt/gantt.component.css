@@ -194,3 +194,18 @@ html, body{
 .status_line {
     background-color: #0ca30a;
 }
+
+#search{
+  width:130px;
+  margin-left:25px;
+  padding:3px 5px 1px;
+  font-size:12px;  	
+}
+.searchEl:after{
+  display:block;
+  content: '';
+  background: url(https://d2zjg0qo565n2.cloudfront.net/sites/default/files/2016-rebrand/header-icons/Homepage_Search_Icon.png) no-repeat;
+  height:20px;
+  margin-top:-28px;
+  margin-left:74px;
+}
