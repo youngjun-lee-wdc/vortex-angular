@@ -5,7 +5,6 @@ import { gantt } from 'opt/gantt_pro/codebase/dhtmlxgantt';
   selector: '[appZoom]'
 })
 export class ZoomDirective {
-
   constructor() { 
        // allow for zooming in and out of the chart and expand and shrink time periods show on the chart
        const hourToStr = gantt.date.date_to_str("%H:%i");
@@ -23,67 +22,71 @@ export class ZoomDirective {
            maxColumnWidth: 150,
            levels: [
                {
-                 name:"day",
+                 name:"level 6",
                  scale_height: 27,
                  min_column_width:80,
                  scales:[
-                     {unit: "day", step: 1, format: "%d %M"}
+                    { unit: "year", format: "%Y", step: 1},
+                    { unit: "month", format: "%M", step: 1}
                  ]
                },
                {
-                  name:"week",
+                  name:"level 5",
                   scale_height: 50,
                   min_column_width:50,
                   scales:[
-                   {unit: "week", step: 1, format: function (date: Date) {
-                    var dateToStr = gantt.date.date_to_str("%d %M");
-                    var endDate = gantt.date.add(date, 6, "day");
-                    var weekNum = gantt.date.date_to_str("%W")(date);
-                    return "#" + weekNum + ", " + dateToStr(date) + " - " + dateToStr(endDate);
-                    }},
-                    {unit: "day", step: 1, format: "%j %D"}
+                    { unit: "month", format: "%M %Y", step: 1},
+                    { unit: "week", step: 1, format: (date: Date) => {
+                        const dateToStr = gantt.date.date_to_str("%d %M");
+                        const endDate = gantt.date.add(date, 6, "day");
+                        return dateToStr(date) + " - " + dateToStr(endDate);}
+                    }
                   ]
                 },
                 {
-                  name:"month",
+                  name:"level 4",
                   scale_height: 50,
                   min_column_width:120,
                   scales:[
-                     {unit: "month", format: "%F, %Y"},
-                     {unit: "week", format: "Week #%W"}
+                    { unit: "month", format: "%M %Y", step: 1},
+                    { unit: "day", format: "%D, %M %d", step: 1}
                   ]
                  },
                  {
-                  name:"quarter",
+                  name:"level 3",
                   height: 50,
                   min_column_width:90,
                   scales:[
-                   {unit: "month", step: 1, format: "%M"},
-                   {
-                    unit: "quarter", step: 1, format: function (date: Date) {
-                     var dateToStr = gantt.date.date_to_str("%M");
-                     var endDate = gantt.date.add(gantt.date.add(date, 3, "month"), -1, "day");
-                     return dateToStr(date) + " - " + dateToStr(endDate);
-                    }
-                  }
+                    { unit: "day", format: "%D, %M %d", step: 1},
+                    { unit: "hour", format: hourRangeFormat(12), step: 12}
                  ]},
                  {
-                   name:"year",
+                   name:"level 2",
                    scale_height: 50,
                    min_column_width: 30,
                    scales:[
-                     {unit: "year", step: 1, format: "%Y"}
-                 ]}
+                    {unit: "day", format: "%D, %M %d",step: 1},
+                    {unit: "hour",format: hourRangeFormat(6),step: 6}
+                 ]},
+                 {
+                  name:"level 1",
+                  scale_height: 50,
+                  min_column_width: 30,
+                  scales:[
+                    { unit: "day", format: "%D, %M %d", step: 1 },
+                    { unit: "hour", format: "%H:%i", step: 1}
+                ]},
            ],
            // TODO: CTRL WHEEL ZOOM NOT WORKING
            useKey: "ctrlKey",
            trigger: "wheel",
            // attaches this component to gantt_task
            element: () => { return gantt.$root.querySelector(".gantt_task")}
+           
        }
        gantt.ext.zoom.init(zoomConfig);
        //set current level for start-up
-       gantt.ext.zoom.setLevel(1);
-   }
+       gantt.ext.zoom.setLevel(2);
+      }
 
 }
