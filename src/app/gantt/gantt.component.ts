@@ -22,29 +22,36 @@ export class GanttComponent implements OnInit, OnDestroy {
         gantt.config.date_format = '%Y-%m-%d %H:%i';
         gantt.config.open_tree_initially = true;
         gantt.config.duration_unit = "minute";
+        gantt.config.duration_step = 1; 
         gantt.config.date_grid = "%Y-%m-%d %H:%i";
         gantt.config.xml_date = "%Y-%m-%d %H:%i";
         gantt.config.round_dnd_dates = false;
         gantt.config.order_branch = true;
         gantt.config.order_branch_free = true;
+        gantt.config.branch_loading = true;
         gantt.config.drag_progress = false;
         gantt.config.grid_width = 400;
         gantt.config.time_step = 1;
         gantt.config.time_picker = "%i";
         gantt.config.min_column_width = 120; 
         gantt.config.initial_scroll = false;
-        gantt.config.sort = true;  
+        gantt.config.sort = true;
+        gantt.config.smart_scales = true;
+        gantt.config.smart_rendering = true;
+        // gantt.config.scroll_size = ;  
         gantt.config.buttons_left = ["gantt_save_btn"];   
         gantt.config.buttons_right = ["gantt_delete_btn", "gantt_cancel_btn"];
         gantt.config.drag_timeline = {
             ignore:".gantt_task_line, .gantt_task_link",
             useKey: false
         };
-        // 
+         
         gantt.locale.labels.icon_save = "Ok";  
+        gantt.config.show_task_cells = false;
         gantt.config.auto_types = true;
         gantt.config.auto_scheduling = true;
         gantt.config.auto_scheduling_compatibility = true;
+        gantt.config.static_background = true;
         gantt.config.columns=[
             { 
                 name:"text", label:"Tests",  tree:true , width: "*",
@@ -62,7 +69,7 @@ export class GanttComponent implements OnInit, OnDestroy {
         
         // allows tasks to be shown linearly rather than in a tree hierarchy format going in diagonal direction
         gantt.locale.labels['section_split'] = "Display";
-        // gantt.config.open_tree_initially = true;
+        gantt.config.grid_resize = true
         gantt.config.server_utc = true;
         gantt.config.lightbox.project_sections = [];
         gantt.config.open_split_tasks = false;
@@ -70,7 +77,6 @@ export class GanttComponent implements OnInit, OnDestroy {
             return "<div style = 'direction:rtl; text-align: center; overflow: hidden'>"+task.text+"</div>";
         };
     
-        // constant variables to be used in sections like the lightbox sections
         // constant variables to be used in sections like the lightbox sections
         gantt.locale.labels['section_test'] = 'Test Suite';
         gantt.locale.labels['section_test_plan_writein'] = 'Specify New Test Plan';
@@ -105,15 +111,16 @@ export class GanttComponent implements OnInit, OnDestroy {
             auto_scheduling: true,
             tooltip: true,
             drag_timeline: true,
+            keyboard_navigation: true,
             marker: true,
             undo: true,
             fullscreen: true,
             export_api: true
         })
 
-        GanttLightbox(gantt)
 
         gantt.init(this.ganttContainer.nativeElement);
+        gantt.showDate(new Date())
 
         gantt.load("http://localhost:3000/data")
         const dp = gantt.createDataProcessor({

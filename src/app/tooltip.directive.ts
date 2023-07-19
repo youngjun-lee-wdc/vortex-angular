@@ -51,7 +51,7 @@ export class TooltipDirective {
 
       let table  = "<table>"
       const level = task.$level
-      if (level){
+      if (level !== undefined){
           for (let [key, value] of Object.entries(tooltips_data[level])){
             table += `<tr><td><b>${key}</b></td><td>: <td>${value}</td></tr>`
           }
