@@ -43,7 +43,11 @@ export class ToolbarComponent {
   }
 
   zoomOut = ():void =>{
-    return
+    gantt.ext.zoom.zoomOut();
+  }
+  
+  zoomIn = (): void =>{
+    gantt.ext.zoom.zoomIn();
   }
 
   pdfExport = ():void => {
@@ -51,13 +55,16 @@ export class ToolbarComponent {
       raw: true,
     });
   }
+
   pngExport = ():void => {
     // workaround for the bug with the export
     gantt.exportToPNG();
   }
+
   jsonExport = ():void =>{
     gantt.exportToJSON()
   }
+  
   onSearchChange = (): void =>{  
     let search_box = document.getElementById("filter");
     console.log((search_box! as HTMLInputElement).value)

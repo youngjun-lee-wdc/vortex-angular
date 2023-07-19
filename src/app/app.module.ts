@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
+import { NgModule  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AccordionModule } from 'ngx-bootstrap/accordion'
 import { FormsModule } from '@angular/forms';
+import { LightboxDirective } from './lightbox.directive';
+import { HotkeyDirective } from './hotkey.directive';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { FormsModule } from '@angular/forms';
     TooltipDirective,
     ZoomDirective,
     ToolbarComponent,
+    LightboxDirective,
+    HotkeyDirective,
   ],
   imports: [
     BrowserModule,
@@ -36,3 +40,4 @@ import { FormsModule } from '@angular/forms';
   bootstrap: [AppComponent],
 })
 export class AppModule { }
+                           
