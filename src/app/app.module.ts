@@ -1,5 +1,8 @@
-import { NgModule  } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {MatDatepickerModule} from '@angular/material/datepicker'; 
+// import { MatNativeDateModule } from '@angular/material/'
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +20,8 @@ import { HotkeyDirective } from './hotkey.directive';
 import { LightboxComponent } from './lightbox/lightbox.component';
 import { LightboxDirective } from './lightbox.directive';
 import { LightboxDataService } from './lightbox-data.service';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 
 @NgModule({
   declarations: [
@@ -30,14 +35,21 @@ import { LightboxDataService } from './lightbox-data.service';
     HotkeyDirective,
     LightboxComponent,
     LightboxDirective,
+    
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     TypeaheadModule.forRoot(),
     AccordionModule.forRoot(),
+    NgxDaterangepickerMd.forRoot(),
     FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    
+    
   ],
   providers: [LightboxDataService],
   bootstrap: [AppComponent],

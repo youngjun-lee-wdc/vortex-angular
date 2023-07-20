@@ -1,0 +1,8 @@
+.form-control{
+    display: flex;
+    flex-direction: row;
+    /* width: 40%; */
+    width:100% !important;
+}
+
+:host ::ng-deep .md-drppicker.ltr { width: 100%; }
