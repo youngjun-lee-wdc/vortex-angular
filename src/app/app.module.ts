@@ -13,8 +13,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AccordionModule } from 'ngx-bootstrap/accordion'
 import { FormsModule } from '@angular/forms';
-import { LightboxDirective } from './lightbox.directive';
 import { HotkeyDirective } from './hotkey.directive';
+import { LightboxComponent } from './lightbox/lightbox.component';
+import { LightboxDirective } from './lightbox.directive';
+import { LightboxDataService } from './lightbox-data.service';
 
 @NgModule({
   declarations: [
@@ -25,8 +27,9 @@ import { HotkeyDirective } from './hotkey.directive';
     TooltipDirective,
     ZoomDirective,
     ToolbarComponent,
-    LightboxDirective,
     HotkeyDirective,
+    LightboxComponent,
+    LightboxDirective,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,7 @@ import { HotkeyDirective } from './hotkey.directive';
     AccordionModule.forRoot(),
     FormsModule,
   ],
-  providers: [],
+  providers: [LightboxDataService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -3,9 +3,6 @@ import { TaskService } from '../services/task.service';
 import { LinkService } from '../services/link.service';
 import { gantt } from 'dhtmlx-gantt';
 
-import { GanttLightbox } from '../services/gantt.lightbox.service';
-
-
 
 @Component({
     encapsulation: ViewEncapsulation.None,
@@ -38,6 +35,7 @@ export class GanttComponent implements OnInit, OnDestroy {
         gantt.config.sort = true;
         gantt.config.smart_scales = true;
         gantt.config.smart_rendering = true;
+        gantt.config.wheel_scroll_sensitivity = 0.2;
         // gantt.config.scroll_size = ;  
         gantt.config.buttons_left = ["gantt_save_btn"];   
         gantt.config.buttons_right = ["gantt_delete_btn", "gantt_cancel_btn"];
