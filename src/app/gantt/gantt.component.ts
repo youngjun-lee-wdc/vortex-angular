@@ -101,7 +101,39 @@ export class GanttComponent implements OnInit, OnDestroy {
                 level += "nested_task"
             }
             return level;
+        };
+        gantt.locale.labels['section_test'] = 'Test Suite';
+        gantt.locale.labels['section_test_plan_writein'] = 'Specify New Test Plan';
+        gantt.locale.labels['section_test_plan_dropdown'] = 'Test Plan';
+        gantt.locale.labels['section_FW_version'] = 'Firmware Version';
+        gantt.templates.task_class  = function(start, end, task){
+            if (task.text.includes("VM-")){ 
+              switch (task['status']){
+              case "Not Started":
+                return "not_started";
+                break;
+              case "Requested":
+                return "requested";
+                break;
+              case "Running":
+                return "running";
+                break;
+              case "Completed":
+                return "completed";
+                break;
+              case "VICE Processing Error":
+                return "viceprocerror";
+                break;
+              }
+            }else if(task.text.includes("DEV-offline")){
+              return "devoffline";
+            }
+            return ""
           };
+
+          
+
+          
     }
 
     ngOnInit() {
@@ -126,6 +158,106 @@ export class GanttComponent implements OnInit, OnDestroy {
             url: "http://localhost:3000/data",
             mode: "REST"
         });
+
+        dp.attachEvent("onAfterUpdate", function(id: string | number, action: any, tid: string | number, response: { status: string; }){  
+            var exp = 4000;
+            let i;
+            switch (action){
+              case "TaskAdded":
+                if(response.status === "Success"){
+                  
+                  gantt.changeTaskId(id, tid);
+                  gantt.showDate(new Date(Date.now() - ( 1* 3600 * 1000 * 24))); 
+      
+                  let task_tmp = gantt.getTask(tid);
+                  var s = gantt.getChildren(task_tmp.parent!);
+                  var siblings = []
+                  for(i = 0; i < s.length; i++){
+                    var sib_id = s[i].substring(3);
+                    sib_id = parseInt(sib_id)
+                    if (!isNaN(sib_id)) { 
+                      siblings.push(sib_id)
+                    }
+                  }
+                  siblings.sort(function(a, b){return a-b})
+                  if(siblings.length > 1){
+                    gantt.addLink({
+                        id:1000000,
+                        source: "vm-" + siblings[siblings.length - 2].toString(),
+                        target: "vm-" + siblings[siblings.length - 1].toString(),
+                        type:gantt.config.links.finish_to_start
+                    });
+                  }
+                  //console.log('Task ' + response.tid + ' was added ' + response.status)
+                  
+                } else{
+                  gantt.message({
+                    type:"error", 
+                    text:"Unknown Error <br> Task was not added!",
+                    expire:exp
+                  });
+                }
+                break;
+              case "LinkAdded":
+                if(response.status === "Success"){
+                  gantt.changeLinkId(id, tid);
+                  //console.log('Link ' + response.tid + ' was added ' + response.status)
+                } else{
+                  gantt.message({
+                    type:"error", 
+                    text:"Unknown Error <br> Link was not added!",
+                    expire:exp
+                  });
+                }
+                break;
+              case "TaskUpdated":
+                if(response.status === "Success"){
+                  //console.log('Task ' + response.tid + ' was updated ' + response.status)
+                } else{
+                  gantt.message({
+                    type:"error", 
+                    text:"Unknown Error <br> Task was not updated!",
+                    expire:exp
+                  });
+                }
+                break;
+              case "LinkUpdated":
+                if(response.status === "Success"){
+                  //console.log('Link ' + response.tid + ' was updated ' + response.status)
+                } else{
+                  gantt.message({
+                    type:"error", 
+                    text:"Unknown Error <br> Link was not updated!",
+                    expire:exp
+                  });
+                }
+                break;
+              case "TaskDeleted":
+                if(response.status === "Success"){
+                  //console.log('Task ' + response.tid + ' was deleted ' + response.status)
+                } else{
+                  gantt.message({
+                    type:"error", 
+                    text:"Unknown Error <br> Task was not deleted!",
+                    expire:exp
+                  });
+                }
+                break;
+              case "LinkDeleted":
+                if(response.status === "Success"){
+                  //console.log('Link ' + response.tid + ' was deleted ' + response.status)
+                } else{
+                  gantt.message({
+                    type:"error", 
+                    text:"Unknown Error <br> Link was not deleted!",
+                    expire:exp
+                  });
+                }
+                break;
+              default:     
+              }
+          });
+      
         dp.init(gantt);
     }
 
