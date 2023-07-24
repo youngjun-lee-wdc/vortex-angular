@@ -12,7 +12,7 @@
             <div class="row mb-3" name="input1">
               <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">Test Suite</label>
               <div class="col-sm-10">
-                <select [(ngModel)]="testSuiteSelected" name="testSuite" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                <select [(ngModel)]="testSuiteSelected" name="testSuite" class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
                   <option *ngFor="let eachVal of testSuites" [value]="eachVal">{{eachVal}}</option>
                 </select>
               </div>
@@ -21,7 +21,7 @@
             <div class="row mb-3">
               <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">Firmware Version</label>
               <div class="col-sm-10">
-                <select [(ngModel)]="firmwareVersionSelected" name="firmwareVersion" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                <select required [(ngModel)]="firmwareVersionSelected" name="firmwareVersion" class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
                   <option selected>Select Firmware Version</option>
                   <option *ngFor="let dutOption of dutOptions" [value]="dutOption">{{dutOption}}</option>
                 </select>
@@ -31,7 +31,7 @@
             <div class="row mb-3">
               <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">Test Plan</label>
               <div class="col-sm-10">
-                <select [(ngModel)]="testPlanSelected" name="testPlan" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                <select required [(ngModel)]="testPlanSelected" name="testPlan" class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
                   <option selected>Test Plan</option>
                   <option *ngFor="let testPlan of uniqueTestPlans" [value]="testPlan">{{testPlan}}</option>
                 </select>
@@ -49,6 +49,7 @@
               <label for="testPeriod" class="col-sm-6 col-form-label">Test Period</label>
               <div class="col-sm-10">
                 <input
+                  required
                   type="text"
                   ngxDaterangepickerMd
                   [timePicker]="true"
@@ -69,8 +70,6 @@
               </div>
             </div>
 
-      
-  
           </form>
         </div>
         <div class="modal-footer">
