@@ -33,6 +33,7 @@
               <div class="col-sm-10">
                 <select [(ngModel)]="testPlanSelected" name="testPlan" class="form-select" id="floatingSelect" aria-label="Floating label select example">
                   <option selected>Test Plan</option>
+                  <option *ngFor="let testPlan of uniqueTestPlans" [value]="testPlan">{{testPlan}}</option>
                 </select>
               </div>
             </div>

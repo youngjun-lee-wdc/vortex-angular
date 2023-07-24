@@ -104,14 +104,14 @@ export class ZoomDirective {
         maxColumnWidth: 150,
         levels: [
             {
-                name: "level0",
+                name: "l0",
                 scales: [
                   { unit: "year", format: "%Y", step: 1},
                   { unit: "month", format: "%M", step: 1}
                 ],
             },
             {
-                name: "level1",
+                name: "l1",
                 scales: [
                   { unit: "month", format: "%M %Y", step: 1},
                   { unit: "week", step: 1, format: function (date: Date) {
@@ -122,29 +122,28 @@ export class ZoomDirective {
                 ],
             },
             {
-                name: "level2",
-
+                name: "l2",
                 scales: [
                   { unit: "month", format: "%M %Y", step: 1},
                   { unit: "day", format: "%D, %M %d", step: 1}
                 ],
             },
             {
-                name: "level3",
+                name: "l3",
                 scales: [
                   { unit: "day", format: "%D, %M %d", step: 1},
                   { unit: "hour", format: hourRangeFormat(12), step: 12}
                 ],
             },
             {
-                name: "level4",
+                name: "l4",
                 scales: [
                   {unit: "day", format: "%D, %M %d",step: 1},
                   {unit: "hour",format: hourRangeFormat(6),step: 6}
                 ],
             },
             {
-              name: "level5",
+              name: "l5",
               scales: [
                 { unit: "day", format: "%D, %M %d", step: 1 },
                 { unit: "hour", format: "%H:%i", step: 1}
@@ -160,5 +159,9 @@ export class ZoomDirective {
     
     gantt.ext.zoom.init(zoomConfig);
     gantt.ext.zoom.setLevel(2);
+    
+    gantt.attachEvent("onAfterTaskAdd", function(id,item){
+      gantt.showDate(new Date(Date.now() - ( 1* 3600 * 1000 * 24)));
+    });
   }
 }
