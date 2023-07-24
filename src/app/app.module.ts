@@ -15,7 +15,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AccordionModule } from 'ngx-bootstrap/accordion'
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HotkeyDirective } from './hotkey.directive';
 import { LightboxComponent } from './lightbox/lightbox.component';
 import { LightboxDirective } from './lightbox.directive';
@@ -48,8 +48,7 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
     FormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    
-    
+    ReactiveFormsModule
   ],
   providers: [LightboxDataService],
   bootstrap: [AppComponent],
