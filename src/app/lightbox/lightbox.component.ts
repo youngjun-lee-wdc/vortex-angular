@@ -40,14 +40,13 @@ export class LightboxComponent{
       return document.getElementById("my-form");
     };
 
-    remove() {
+    deleteTask() {
       gantt.deleteTask(this.taskId);
       gantt.hideLightbox();
     }
 
-    save(){
-      // console.log(this.taskId)
-      // var task = gantt.getTask(this.taskId);
+    saveTask(){
+      gantt.hideLightbox();
       const task = this.newTask
       
       console.log(task["$new"])
@@ -59,7 +58,9 @@ export class LightboxComponent{
           gantt.addTask({
             id: this.taskId,
             parent: task.parent,
-            text: "test",
+            text: this.testSuiteSelected,
+            test_plan_dropdown: this.testPlanSelected,
+            FW_version: this.firmwareVersionSelected,
             start_date: new Date(this.dateSelected.startDate),
             end_date: new Date(this.dateSelected.endDate),
             duration: gantt.calculateDuration({
