@@ -22,6 +22,7 @@ export class LightboxComponent{
     public testPlanSelected: any
     public newTestPlan: string
     public dateSelected: {startDate: Date , endDate: Date};
+    public uniqueTestPlans: any
 
 
     constructor(){
@@ -46,15 +47,10 @@ export class LightboxComponent{
     }
 
     saveTask(){
-      gantt.hideLightbox();
       const task = this.newTask
       
-      console.log(task["$new"])
-      // const text = task.text = (this.getForm()?.querySelector("[name='description']") as HTMLInputElement).value;
-      // console.log(this.testSuiteSelected)
       if(task["$new"]){
           delete task["$new"];
-          // gantt.addTask(task,task.parent);
           gantt.addTask({
             id: this.taskId,
             parent: task.parent,
@@ -68,12 +64,9 @@ export class LightboxComponent{
               end_date: new Date(this.dateSelected.endDate)
             })
           }, task.parent)
-          console.log(gantt.getTask(this.taskId))
 
       }else{
-          
           gantt.updateTask(task.id);
-          console.log(gantt.getTask(this.taskId))
       }
    
       gantt.hideLightbox();
@@ -98,10 +91,35 @@ export class LightboxComponent{
       this['dutOptions'] = gantt.serverList("availablefirmwares").flatMap(((x: { value: any; })=> x.value))
     }
 
+    getUniqueTestPlans(){
+      let options:any = []   
+      gantt.eachTask((task)=>{
+        const entry1 = task.test_plan_writein;
+        if (entry1 && !(options.includes(entry1))){
+          options.push(entry1)
+        }
+        const entry2 = task.test_plan_dropdown
+        if (entry2 && !(options.includes(entry2))){
+          options.push(entry2)
+        }
+        if (options.includes("NaN")){ 
+          options.splice(options.indexOf("NaN"), 1);        
+        }
+
+        let uniqueOptions = []
+        for (let i=0;i<options.length; i++){
+          uniqueOptions.push(options[i])
+        }
+        this.uniqueTestPlans = uniqueOptions
+        console.log(uniqueOptions)
+      })
+    }
+
     ngAfterViewChecked(){
       gantt.showLightbox = (taskId) => {
         this.taskId = taskId
         this.newTask = gantt.getTask(taskId)
+        this.getUniqueTestPlans()
         this.initLightBox()
         const myModal = this.formModal
 
@@ -109,6 +127,13 @@ export class LightboxComponent{
 
 
       }
+
+      gantt.hideLightbox = () =>{
+        this.formModal.hide()
+      }
+      // gantt.hideLightbox = () =>{
+        // this.formModal.hide()
+      // }
     }
 
 
