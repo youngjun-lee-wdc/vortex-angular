@@ -65,12 +65,6 @@ export class LightboxComponent{
           }, task.parent)
 
       }else{
-          // gantt.updateTask(task.id);
-
-          // check which variables got updated:
-
-
-
           gantt.updateTask(this.taskId, {
             id: this.taskId,
             text: (this.testSuiteSelected === undefined) ? gantt.getTask(this.taskId).text : this.testSuiteSelected,

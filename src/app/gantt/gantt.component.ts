@@ -1,6 +1,4 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, OnDestroy } from '@angular/core';
-import { TaskService } from '../services/task.service';
-import { LinkService } from '../services/link.service';
 import { gantt } from 'dhtmlx-gantt';
 
 
@@ -8,7 +6,6 @@ import { gantt } from 'dhtmlx-gantt';
     encapsulation: ViewEncapsulation.None,
     selector: 'gantt',
     styleUrls: ['./gantt.component.css'],
-    providers: [TaskService, LinkService],
     templateUrl : './gantt.component.html',
 })
 
@@ -36,7 +33,6 @@ export class GanttComponent implements OnInit, OnDestroy {
         gantt.config.smart_scales = true;
         gantt.config.smart_rendering = true;
         gantt.config.wheel_scroll_sensitivity = 0.2;
-        // gantt.config.scroll_size = ;  
         gantt.config.buttons_left = ["gantt_save_btn"];   
         gantt.config.buttons_right = ["gantt_delete_btn", "gantt_cancel_btn"];
         gantt.config.drag_timeline = {
@@ -162,6 +158,7 @@ export class GanttComponent implements OnInit, OnDestroy {
         dp.attachEvent("onAfterUpdate", function(id: string | number, action: any, tid: string | number, response: { status: string; }){  
             var exp = 4000;
             let i;
+            console.log("here")
             switch (action){
               case "TaskAdded":
                 if(response.status === "Success"){

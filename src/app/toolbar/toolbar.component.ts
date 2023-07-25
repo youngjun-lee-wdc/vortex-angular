@@ -10,12 +10,6 @@ import { gantt } from 'opt/gantt_pro/codebase/dhtmlxgantt';
 })
 export class ToolbarComponent {
   selected?: string;
-  states: string[] = [
-    'Alabama',
-    'Wisconsin',
-    'Wyoming'
-  ];
-
 
   collapseAll = () :void  =>{
     gantt.eachTask((task: { $open: boolean; }) => {
