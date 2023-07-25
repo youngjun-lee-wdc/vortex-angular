@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 import { GanttComponent } from './gantt/gantt.component';
 import { HotkeyDirective } from './hotkey.directive';
 import { HotkeysDirective } from './hotkeys.directive';
-import { LightboxDataService } from './lightbox-data.service';
 import { LightboxComponent } from './lightbox/lightbox.component';
 import { MarkerDirective } from './marker.directive';
 import { ToolbarComponent } from './toolbar/toolbar.component';
@@ -30,7 +29,6 @@ import { ZoomDirective } from './zoom.directive';
     TooltipDirective,
     ZoomDirective,
     HotkeyDirective,
-    // LightboxDirective,
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -43,7 +41,6 @@ import { ZoomDirective } from './zoom.directive';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [LightboxDataService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
