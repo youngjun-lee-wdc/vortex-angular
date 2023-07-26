@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 import { gantt } from 'dhtmlx-gantt';
+import { LightboxComponent } from '../lightbox/lightbox.component';
 
 
 @Component({
@@ -11,7 +12,11 @@ import { gantt } from 'dhtmlx-gantt';
 
 export class GanttComponent implements OnInit, OnDestroy {
     @ViewChild('gantt_here', { static: true }) ganttContainer!: ElementRef;
+    // @ViewChildren("LightboxComponent") 
+    @ViewChild(LightboxComponent) customLightBox: LightboxComponent
 
+    // public Lightbox: QueryList<LightboxComponent>
+    // private customLightBox : LightboxComponent
     constructor(){
         gantt.config.date_format = '%Y-%m-%d %H:%i';
         gantt.config.open_tree_initially = true;
@@ -60,12 +65,12 @@ export class GanttComponent implements OnInit, OnDestroy {
         ];
     
     
-        
+        gantt.config.lightbox = false
         // allows tasks to be shown linearly rather than in a tree hierarchy format going in diagonal direction
         gantt.locale.labels['section_split'] = "Display";
         gantt.config.grid_resize = true
         gantt.config.server_utc = true;
-        gantt.config.lightbox.project_sections = [];
+        // gantt.config.lightbox.project_sections = [];
         gantt.config.open_split_tasks = false;
         gantt.templates.task_text = function(start, end, task){
             return "<div style = 'direction:rtl; text-align: center; overflow: hidden'>"+task.text+"</div>";
@@ -131,6 +136,10 @@ export class GanttComponent implements OnInit, OnDestroy {
 
           
     }
+    
+    callLightbox(taskId: any){
+      this.customLightBox.showLightbox(taskId)
+    }
 
     ngOnInit() {
         gantt.plugins({
@@ -145,6 +154,9 @@ export class GanttComponent implements OnInit, OnDestroy {
         })
 
 
+        gantt.attachEvent("onTaskClick", (id) =>{
+          this.callLightbox(id)
+        })
         gantt.init(this.ganttContainer.nativeElement);
         gantt.showDate(new Date())
 
@@ -253,10 +265,23 @@ export class GanttComponent implements OnInit, OnDestroy {
                 break;
               default:     
               }
-          });
+        });
       
         dp.init(gantt);
     }
+
+
+    ngAfterViewInit(){
+      // gantt.attachEvent("onTaskClick", (id)=>{
+        // this.Lightbox.showLightbox(id)
+      // }) 
+    }
+
+    // ngAfterContentInit(){
+      // gantt.attachEvent("onTaskClick", (id)=>{
+        // this.customLightbox.showLightbox(id)
+      // }) 
+    // }
 
     ngOnDestroy(): void{
         gantt.destructor();

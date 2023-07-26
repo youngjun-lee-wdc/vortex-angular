@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import * as bootstrap from "bootstrap";
 import { Task, gantt } from 'opt/gantt_pro/codebase/dhtmlxgantt';
 declare var window: any;
+
 @Component({
   selector: 'app-lightbox',
   templateUrl: './lightbox.component.html',
-  styleUrls: ['./lightbox.component.css'],
-  providers: [],
-  
+  styleUrls: ['./lightbox.component.css'],  
 })
+
 export class LightboxComponent{
     private formModal: bootstrap.Modal;
     public testSuites: any;
@@ -24,12 +25,31 @@ export class LightboxComponent{
     public dateSelected: {startDate: Date , endDate: Date};
     public uniqueTestPlans: any
 
+    @Input() task: any
+    taskForm: FormGroup
+
     constructor(){
       this.minStartDate = new Date().toISOString()
     }
 
+    public showLightbox = (taskId: string | number) => {
+      this.formModal = new window.bootstrap.Modal(
+        document.getElementById("exampleModal")
+      )
+      this.taskId = taskId
+      this.newTask = gantt.getTask(taskId)
+      this.getUniqueTestPlans()
+      this.initLightBox()
+      const myModal = this.formModal
+      myModal.show()
+    }
+
+    hideLightbox = () =>{
+      this.formModal.hide()
+    }
+    
     cancel() {
-      var task = gantt.getTask(this.taskId);
+      let task = gantt.getTask(this.taskId);
    
       if(task.$new)
       gantt.deleteTask(task.id);
@@ -64,7 +84,8 @@ export class LightboxComponent{
             })
           }, task.parent)
 
-      }else{
+      }
+      else{
           gantt.updateTask(this.taskId, {
             id: this.taskId,
             text: (this.testSuiteSelected === undefined) ? gantt.getTask(this.taskId).text : this.testSuiteSelected,
@@ -82,20 +103,17 @@ export class LightboxComponent{
     }
 
     ngOnInit(){
-      this.formModal = new window.bootstrap.Modal(
-        document.getElementById("exampleModal")
-        )
+
     }
 
     initLightBox(){
         try{
           const taskParent = gantt.getTask(this.newTask.parent!)
-          const taskGrandParent = gantt.getTask(taskParent.parent!)
-          const serverName = gantt.serverList(taskGrandParent.text)
+          const serverName = gantt.serverList(taskParent.text)
           this['testSuites'] = serverName.flatMap(((x: { value: any; })=> x.value))
         }
         catch(e){
-          console.log
+          console.log(e)
         }
       this['dutOptions'] = gantt.serverList("availablefirmwares").flatMap(((x: { value: any; })=> x.value))
     }
@@ -123,18 +141,4 @@ export class LightboxComponent{
       })
     }
 
-    ngAfterViewChecked(){
-      gantt.showLightbox = (taskId) => {
-        this.taskId = taskId
-        this.newTask = gantt.getTask(taskId)
-        this.getUniqueTestPlans()
-        this.initLightBox()
-        const myModal = this.formModal
-        myModal.show()
-      }
-
-      gantt.hideLightbox = () =>{
-        this.formModal.hide()
-      }
-    }    
 }
