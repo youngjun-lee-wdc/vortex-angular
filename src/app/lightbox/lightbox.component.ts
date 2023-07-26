@@ -78,7 +78,6 @@ export class LightboxComponent{
             })
           })
       }
-   
       gantt.hideLightbox();
     }
 
