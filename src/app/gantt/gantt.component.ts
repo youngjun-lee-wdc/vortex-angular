@@ -52,16 +52,17 @@ export class GanttComponent implements OnInit, OnDestroy {
         gantt.config.auto_scheduling_compatibility = true;
         gantt.config.static_background = true;
         gantt.config.columns=[
-            { 
-                name:"text", label:"Tests",  tree:true , width: "*",
-                template: (task) => {
-                    if (task.text.includes("VM-")){
-                        return "<div style = 'direction:rtl; text-align: center; overflow: hidden'>"+task.text+"</div>"
-                    }
-                    return task.text
-                }
-            },
-            {name:"add", label:"" },
+          { 
+              name:"text", label:"Tests",  tree:true , width: "*",
+              template: (task) => {
+                  console.log(task)
+                  if (task.text.includes("VM-")){
+                      return "<div style = 'direction:rtl; text-align: center; overflow: hidden'>"+task.text+"</div>"
+                  }
+                  return task.text
+              }
+          },
+          {name:"add", label:"" },
         ];
     
     
@@ -137,9 +138,10 @@ export class GanttComponent implements OnInit, OnDestroy {
           
     }
     
-    callLightbox(taskId: any){
-      this.customLightBox.showLightbox(taskId)
+    callLightbox(taskId: any, isNewTask: boolean = true){
+      this.customLightBox.showLightbox(taskId, isNewTask)
     }
+    
 
     ngOnInit() {
         gantt.plugins({
@@ -159,6 +161,16 @@ export class GanttComponent implements OnInit, OnDestroy {
         })
         gantt.init(this.ganttContainer.nativeElement);
         gantt.showDate(new Date())
+        gantt.attachEvent("onTaskClick", (id, e) =>{
+          console.log(e)
+          if (e.target.className === "gantt_add"){
+            console.log("classname add")
+            this.callLightbox(id)
+          }
+          if (e.target.className === ""){
+            this.callLightbox(id, false)
+          }
+        })
 
         gantt.load("http://localhost:3000/data")
         const dp = gantt.createDataProcessor({
@@ -270,18 +282,6 @@ export class GanttComponent implements OnInit, OnDestroy {
         dp.init(gantt);
     }
 
-
-    ngAfterViewInit(){
-      // gantt.attachEvent("onTaskClick", (id)=>{
-        // this.Lightbox.showLightbox(id)
-      // }) 
-    }
-
-    // ngAfterContentInit(){
-      // gantt.attachEvent("onTaskClick", (id)=>{
-        // this.customLightbox.showLightbox(id)
-      // }) 
-    // }
 
     ngOnDestroy(): void{
         gantt.destructor();
