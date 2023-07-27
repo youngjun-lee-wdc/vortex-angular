@@ -9,8 +9,7 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GanttComponent } from './gantt/gantt.component';
-import { HotkeyDirective } from './hotkey.directive';
-import { HotkeysDirective } from './hotkeys.directive';
+
 import { LightboxComponent } from './lightbox/lightbox.component';
 import { MarkerDirective } from './marker.directive';
 import { ToolbarComponent } from './toolbar/toolbar.component';
@@ -25,11 +24,8 @@ import { ZoomDirective } from './zoom.directive';
     ToolbarComponent,
 
     MarkerDirective,
-    HotkeysDirective,
     TooltipDirective,
     ZoomDirective,
-    HotkeyDirective,
-    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [

@@ -24,7 +24,7 @@ export class LightboxComponent{
     public newTestPlan: string
     public dateSelected: {startDate: Date , endDate: Date};
     public uniqueTestPlans: any
-
+    public isNewTask: boolean
     @Input() task: any
     taskForm: FormGroup
 
@@ -32,7 +32,8 @@ export class LightboxComponent{
       this.minStartDate = new Date().toISOString()
     }
 
-    public showLightbox = (taskId: string | number) => {
+    public showLightbox = (taskId: string | number, isNewTask: boolean) => {
+      this.isNewTask = isNewTask
       this.formModal = new window.bootstrap.Modal(
         document.getElementById("exampleModal")
       )
@@ -62,29 +63,43 @@ export class LightboxComponent{
 
     deleteTask() {
       gantt.deleteTask(this.taskId);
-      gantt.hideLightbox();
+      // gantt.hideLightbox();
     }
 
     saveTask(){
       const task = this.newTask
       
-      if(task["$new"]){
-          delete task["$new"];
-          gantt.addTask({
-            id: this.taskId,
-            parent: task.parent,
-            text: this.testSuiteSelected,
-            test_plan_dropdown: this.testPlanSelected,
-            FW_version: this.firmwareVersionSelected,
+      if (this.isNewTask){
+        gantt.addTask({
+          id: this.taskId,
+          parent: task.parent,
+          text: this.testSuiteSelected,
+          test_plan_dropdown: this.testPlanSelected,
+          FW_version: this.firmwareVersionSelected,
+          start_date: new Date(this.dateSelected.startDate),
+          end_date: new Date(this.dateSelected.endDate),
+          duration: gantt.calculateDuration({
             start_date: new Date(this.dateSelected.startDate),
-            end_date: new Date(this.dateSelected.endDate),
-            duration: gantt.calculateDuration({
-              start_date: new Date(this.dateSelected.startDate),
-              end_date: new Date(this.dateSelected.endDate)
-            })
-          }, task.parent)
-
+            end_date: new Date(this.dateSelected.endDate)
+          })
+        }, task.parent)
       }
+      // if(task["$new"]){
+          // delete task["$new"];
+          // gantt.addTask({
+            // id: this.taskId,
+            // parent: task.parent,
+            // text: this.testSuiteSelected,
+            // test_plan_dropdown: this.testPlanSelected,
+            // FW_version: this.firmwareVersionSelected,
+            // start_date: new Date(this.dateSelected.startDate),
+            // end_date: new Date(this.dateSelected.endDate),
+            // duration: gantt.calculateDuration({
+              // start_date: new Date(this.dateSelected.startDate),
+              // end_date: new Date(this.dateSelected.endDate)
+            // })
+          // }, task.parent)
+      // }
       else{
           gantt.updateTask(this.taskId, {
             id: this.taskId,
@@ -99,12 +114,10 @@ export class LightboxComponent{
             })
           })
       }
+      this.hideLightbox()
       gantt.hideLightbox();
     }
 
-    ngOnInit(){
-
-    }
 
     initLightBox(){
         try{
