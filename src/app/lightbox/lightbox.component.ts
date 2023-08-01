@@ -68,13 +68,14 @@ export class LightboxComponent{
 
     saveTask(){
       const task = this.newTask
+      console.log("test plan: ", this.testPlanSelected)
       
       if (this.isNewTask){
         gantt.addTask({
-          id: this.taskId,
-          parent: task.parent,
+          parent: this.taskId,
           text: this.testSuiteSelected,
-          test_plan_dropdown: this.testPlanSelected,
+          test_plan_dropdown : this.testPlanSelected,
+          test_plan_writein: this.newTestPlan,
           FW_version: this.firmwareVersionSelected,
           start_date: new Date(this.dateSelected.startDate),
           end_date: new Date(this.dateSelected.endDate),
@@ -82,24 +83,9 @@ export class LightboxComponent{
             start_date: new Date(this.dateSelected.startDate),
             end_date: new Date(this.dateSelected.endDate)
           })
-        }, task.parent)
+        })
       }
-      // if(task["$new"]){
-          // delete task["$new"];
-          // gantt.addTask({
-            // id: this.taskId,
-            // parent: task.parent,
-            // text: this.testSuiteSelected,
-            // test_plan_dropdown: this.testPlanSelected,
-            // FW_version: this.firmwareVersionSelected,
-            // start_date: new Date(this.dateSelected.startDate),
-            // end_date: new Date(this.dateSelected.endDate),
-            // duration: gantt.calculateDuration({
-              // start_date: new Date(this.dateSelected.startDate),
-              // end_date: new Date(this.dateSelected.endDate)
-            // })
-          // }, task.parent)
-      // }
+
       else{
           gantt.updateTask(this.taskId, {
             id: this.taskId,
@@ -115,7 +101,7 @@ export class LightboxComponent{
           })
       }
       this.hideLightbox()
-      gantt.hideLightbox();
+      // gantt.hideLightbox();
     }
 
 
@@ -128,7 +114,15 @@ export class LightboxComponent{
         catch(e){
           console.log(e)
         }
-      this['dutOptions'] = gantt.serverList("availablefirmwares").flatMap(((x: { value: any; })=> x.value))
+        // restore values for selected test configs and populate dropdown before lightbox is shown
+        if (!this.isNewTask){
+          const selectedTask = gantt.getTask(this.taskId)
+          this.testSuiteSelected = selectedTask['text']
+          this.firmwareVersionSelected = selectedTask['FW_version']
+          this.testPlanSelected = selectedTask['test_plan_dropdown']
+          this.dateSelected = { startDate: selectedTask['start_date']!, endDate: selectedTask['end_date']! }
+        }
+        this['dutOptions'] = gantt.serverList("availablefirmwares").flatMap(((x: { value: any; })=> x.value))
     }
 
     getUniqueTestPlans(){

@@ -12,8 +12,11 @@
             <div class="row mb-3" name="input1">
               <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">Test Suite</label>
               <div class="col-sm-10">
-                <select [(ngModel)]="testSuiteSelected" name="testSuite" class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
-                  <option required *ngFor="let testSuite of testSuites" [value]="testSuite">{{testSuite}}</option>
+                <!-- <div *ngIf="isNewTask">Item 1</div> -->
+                <select [(ngModel)]="testSuiteSelected" name="testSuite" class="form-select" id="floatingSelect" aria-label="Floating label select example" required [value]="25">
+                  <option *ngIf="isNewTask" [ngValue]="undefined" [disabled]="true">Choose Test Suite</option>
+                  <option *ngIf="!isNewTask" [ngValue]="testSuiteSelected">{{testSuiteSelected}}</option>
+                  <option required *ngFor="let testSuite of testSuites" [value]="testSuite" >{{testSuite}}</option>
                 </select>
               </div>
             </div>
@@ -22,6 +25,9 @@
               <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">Firmware Version</label>
               <div class="col-sm-10">
                 <select required [(ngModel)]="firmwareVersionSelected" name="firmwareVersion" class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
+                  
+                  <option *ngIf="isNewTask" [ngValue]="undefined" [disabled]="true">Choose Firmware</option>
+                  <option *ngIf="!isNewTask" [ngValue]="firmwareVersionSelected">{{firmwareVersionSelected}}</option>
                   <option *ngFor="let dutOption of dutOptions" [value]="dutOption">{{dutOption}}</option>
                 </select>
               </div>
@@ -31,6 +37,8 @@
               <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">Test Plan</label>
               <div class="col-sm-10">
                 <select required [(ngModel)]="testPlanSelected" name="testPlan" class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
+                  <option *ngIf="isNewTask" [ngValue]="undefined" [disabled]="true">Choose Test Plan</option>
+                  <option *ngIf="!isNewTask" [ngValue]="testPlanSelected">{{testPlanSelected}}</option>
                   <option *ngFor="let testPlan of uniqueTestPlans" [value]="testPlan">{{testPlan}}</option>
                 </select>
               </div>
@@ -39,6 +47,7 @@
             <div class="row mb-3">
               <label for="inputEmail3" class="col-sm-6 col-form-label">Specify New Test Plan</label>
               <div class="col-sm-10">
+                
                 <input [(ngModel)]="newTestPlan" name="newTestPlan" class="form-control" id="inputEmail3">
               </div>
             </div>
