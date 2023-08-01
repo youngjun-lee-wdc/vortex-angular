@@ -55,7 +55,6 @@ export class GanttComponent implements OnInit, OnDestroy {
           { 
               name:"text", label:"Tests",  tree:true , width: "*",
               template: (task) => {
-                  console.log(task)
                   if (task.text.includes("VM-")){
                       return "<div style = 'direction:rtl; text-align: center; overflow: hidden'>"+task.text+"</div>"
                   }
@@ -156,20 +155,29 @@ export class GanttComponent implements OnInit, OnDestroy {
         })
 
 
-        gantt.attachEvent("onTaskClick", (id) =>{
-          this.callLightbox(id)
-        })
         gantt.init(this.ganttContainer.nativeElement);
         gantt.showDate(new Date())
+        
         gantt.attachEvent("onTaskClick", (id, e) =>{
-          console.log(e)
-          if (e.target.className === "gantt_add"){
-            console.log("classname add")
-            this.callLightbox(id)
+          if (e.target.className === "gantt_tree_icon gantt_close"){
+            gantt.close(id)
           }
-          if (e.target.className === ""){
-            this.callLightbox(id, false)
+          if (e.target.className === "gantt_tree_icon gantt_open"){
+            gantt.open(id)
           }
+          
+          const taskLevel = gantt.calculateTaskLevel(id)
+          if (taskLevel > 1){
+            // prevent lightbox opening on servers and locations
+            if (e.target.className === "gantt_add"){
+              console.log("classname add")
+              this.callLightbox(id)
+            }
+            if (e.target.className === ""){
+              this.callLightbox(id, false)
+            }
+          }
+
         })
 
         gantt.load("http://localhost:3000/data")
@@ -188,7 +196,7 @@ export class GanttComponent implements OnInit, OnDestroy {
                 if(response.status === "Success"){
                   
                   gantt.changeTaskId(id, tid);
-                  gantt.showDate(new Date(Date.now() - ( 1* 3600 * 1000 * 24))); 
+                  gantt.showDate(new Date(Date.now() - (1* 3600 * 1000 * 24))); 
       
                   let task_tmp = gantt.getTask(tid);
                   var s = gantt.getChildren(task_tmp.parent!);
