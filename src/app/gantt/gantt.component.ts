@@ -17,6 +17,7 @@ export class GanttComponent implements OnInit, OnDestroy {
 
     // public Lightbox: QueryList<LightboxComponent>
     // private customLightBox : LightboxComponent
+
     constructor(){
         gantt.config.date_format = '%Y-%m-%d %H:%i';
         gantt.config.open_tree_initially = true;
@@ -88,7 +89,7 @@ export class GanttComponent implements OnInit, OnDestroy {
         };
     
         gantt.templates.grid_folder = () => {
-            return "<div class='gantt_tree_icon'> <fa-icon [icon]=fa-solid fa-database fa-lg'></div>";
+            return "<div class='gantt_tree_icon'><fa-icon [icon]=fa-solid fa-database fa-lg'></div>";
         };
       
         gantt.templates.grid_file = () => {
@@ -158,6 +159,34 @@ export class GanttComponent implements OnInit, OnDestroy {
         gantt.init(this.ganttContainer.nativeElement);
         gantt.showDate(new Date())
         
+        gantt.attachEvent("onLoadEnd", function(){ 
+          gantt.showDate(new Date(Date.now() - ( 1* 3600 * 1000 * 24))); 
+          var tasks = gantt.getTaskByTime();
+          var cur_date = new Date()
+          cur_date.setDate(cur_date.getDate() - 1)
+          for(var i=0; i<tasks.length; i++){
+            var task_tmp = tasks[i]
+            if(!task_tmp.text.includes("VM-")){
+                task_tmp['readonly'] = true
+              }
+              if(task_tmp.text.includes("DEV-offline")){
+                task_tmp['readonly'] = false
+              }
+              if(task_tmp.start_date! < cur_date){
+                task_tmp['readonly'] = true
+              }
+              if(task_tmp.status !== "Not Started"){
+                task_tmp['readonly'] = true
+              }
+          }
+          var date_tmp = Date.now()
+          var min_date = gantt.getState().min_date;
+          gantt.config.start_date = min_date;
+          gantt.config.end_date = new Date(date_tmp + ( 14* 3600 * 1000 * 24));
+          gantt.render()
+        });
+
+
         gantt.attachEvent("onTaskClick", (id, e) =>{
           if (e.target.className === "gantt_tree_icon gantt_close"){
             gantt.close(id)
@@ -170,14 +199,12 @@ export class GanttComponent implements OnInit, OnDestroy {
           if (taskLevel > 1){
             // prevent lightbox opening on servers and locations
             if (e.target.className === "gantt_add"){
-              console.log("classname add")
               this.callLightbox(id)
             }
             if (e.target.className === ""){
               this.callLightbox(id, false)
             }
           }
-
         })
 
         gantt.load("http://localhost:3000/data")
@@ -191,6 +218,10 @@ export class GanttComponent implements OnInit, OnDestroy {
             var exp = 4000;
             let i;
             console.log("here")
+            console.log("id: ", id)
+            console.log("action: ", action)
+            console.log("tid: ", tid)
+            console.log("response: ", response)
             switch (action){
               case "TaskAdded":
                 if(response.status === "Success"){

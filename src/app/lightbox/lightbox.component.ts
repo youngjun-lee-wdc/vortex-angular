@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as bootstrap from "bootstrap";
 import { Task, gantt } from 'opt/gantt_pro/codebase/dhtmlxgantt';
 declare var window: any;
@@ -28,8 +28,19 @@ export class LightboxComponent{
     @Input() task: any
     taskForm: FormGroup
 
-    constructor(){
+    constructor(private fb: FormBuilder){
       this.minStartDate = new Date().toISOString()
+      this.dateSelected = {startDate: new Date(), endDate: new Date()}
+    }
+
+    ngOnInit(){
+      this.taskForm = this.fb.group({
+        testSuite: [null, Validators.required],
+        firmwareVersion: [null, Validators.required],
+        testPlan: [null, Validators.required],
+        // newTestPlan: [null],
+        dateSelected: [null, Validators.required]
+      })
     }
 
     public showLightbox = (taskId: string | number, isNewTask: boolean) => {
@@ -46,31 +57,54 @@ export class LightboxComponent{
     }
 
     hideLightbox = () =>{
+      // reset forms for all options
       this.formModal.hide()
+      this.testSuiteSelected = undefined
+      this.testPlanSelected = undefined
+      this.firmwareVersionSelected = undefined
+      this.dateSelected = {startDate: new Date(), endDate: new Date()}
     }
     
     cancel() {
       let task = gantt.getTask(this.taskId);
-   
-      if(task.$new)
       gantt.deleteTask(task.id);
       gantt.hideLightbox();
     }
-   
-    getForm() {
-      return document.getElementById("my-form");
-    };
 
     deleteTask() {
-      gantt.deleteTask(this.taskId);
-      // gantt.hideLightbox();
+      if (this.isNewTask){
+        this.hideLightbox()
+      }
+      else {
+        gantt.deleteTask(this.taskId);
+      }
+        // gantt.hideLightbox();
     }
 
     saveTask(){
+
+      if (this.taskForm.invalid){
+        console.log("invalid form")
+        return
+      }
       const task = this.newTask
-      console.log("test plan: ", this.testPlanSelected)
+
       
       if (this.isNewTask){
+        const taskToBeAdded = {
+          parent: this.taskId,
+          text: this.testSuiteSelected,
+          test_plan_dropdown : this.testPlanSelected,
+          test_plan_writein: this.newTestPlan,
+          FW_version: this.firmwareVersionSelected,
+          start_date: new Date(this.dateSelected.startDate),
+          end_date: new Date(this.dateSelected.endDate),
+          duration: gantt.calculateDuration({
+            start_date: new Date(this.dateSelected.startDate),
+            end_date: new Date(this.dateSelected.endDate)
+          })
+        }
+        console.log(taskToBeAdded)
         gantt.addTask({
           parent: this.taskId,
           text: this.testSuiteSelected,
@@ -84,6 +118,8 @@ export class LightboxComponent{
             end_date: new Date(this.dateSelected.endDate)
           })
         })
+        // const returnAdd = gantt.addTask(taskToBeAdded)
+        // console.log(returnAdd)
       }
 
       else{
@@ -101,11 +137,25 @@ export class LightboxComponent{
           })
       }
       this.hideLightbox()
-      // gantt.hideLightbox();
     }
 
 
     initLightBox(){
+
+        // restore values for selected test configs and populate dropdown before lightbox is shown
+        if (!this.isNewTask){
+          const selectedTask = gantt.getTask(this.taskId)
+          this.testSuiteSelected = selectedTask['text']
+          this.firmwareVersionSelected = selectedTask['FW_version']
+          this.testPlanSelected = selectedTask['test_plan_dropdown']
+          // this.dateSelected.startDate = selectedTask['start_date']!
+          // this.dateSelected.endDate = selectedTask['end_date']!
+          this.dateSelected = { startDate: selectedTask['start_date']!, endDate: selectedTask['end_date']! }
+        }
+        else{
+
+          // this.dateSelected = undefined
+        }
         try{
           const taskParent = gantt.getTask(this.newTask.parent!)
           const serverName = gantt.serverList(taskParent.text)
@@ -113,14 +163,6 @@ export class LightboxComponent{
         }
         catch(e){
           console.log(e)
-        }
-        // restore values for selected test configs and populate dropdown before lightbox is shown
-        if (!this.isNewTask){
-          const selectedTask = gantt.getTask(this.taskId)
-          this.testSuiteSelected = selectedTask['text']
-          this.firmwareVersionSelected = selectedTask['FW_version']
-          this.testPlanSelected = selectedTask['test_plan_dropdown']
-          this.dateSelected = { startDate: selectedTask['start_date']!, endDate: selectedTask['end_date']! }
         }
         this['dutOptions'] = gantt.serverList("availablefirmwares").flatMap(((x: { value: any; })=> x.value))
     }

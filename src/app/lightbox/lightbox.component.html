@@ -7,49 +7,65 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
-
+          <form [formGroup]="taskForm" novalidate>
             <div class="row mb-3" name="input1">
               <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">Test Suite</label>
               <div class="col-sm-10">
-                <!-- <div *ngIf="isNewTask">Item 1</div> -->
-                <select [(ngModel)]="testSuiteSelected" name="testSuite" class="form-select" id="floatingSelect" aria-label="Floating label select example" required [value]="25">
+                <select [(ngModel)]="testSuiteSelected" name="testSuite" class="form-select" id="floatingSelect" aria-label="Floating label select example" required formControlName="testSuite">
                   <option *ngIf="isNewTask" [ngValue]="undefined" [disabled]="true">Choose Test Suite</option>
                   <option *ngIf="!isNewTask" [ngValue]="testSuiteSelected">{{testSuiteSelected}}</option>
-                  <option required *ngFor="let testSuite of testSuites" [value]="testSuite" >{{testSuite}}</option>
+                  <option *ngFor="let testSuite of testSuites" [value]="testSuite">{{testSuite}}</option>
                 </select>
+                <div *ngIf="taskForm.controls['testSuite'].invalid && taskForm.controls['testSuite'].touched" class="alert alert-danger">
+                  <div *ngIf="taskForm.controls['testSuite'].errors">
+                    Test Suite is required.
+                  </div>
+                </div>
               </div>
             </div>
           
             <div class="row mb-3">
               <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">Firmware Version</label>
               <div class="col-sm-10">
-                <select required [(ngModel)]="firmwareVersionSelected" name="firmwareVersion" class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
-                  
+                <select required [(ngModel)]="firmwareVersionSelected" name="firmwareVersion" class="form-select" id="floatingSelect" aria-label="Floating label select example" required formControlName="firmwareVersion">
                   <option *ngIf="isNewTask" [ngValue]="undefined" [disabled]="true">Choose Firmware</option>
                   <option *ngIf="!isNewTask" [ngValue]="firmwareVersionSelected">{{firmwareVersionSelected}}</option>
-                  <option *ngFor="let dutOption of dutOptions" [value]="dutOption">{{dutOption}}</option>
+                  <option *ngFor="let dutOption of dutOptions" [value]="dutOption" >{{dutOption}}</option>
                 </select>
+                <div *ngIf="taskForm.controls['firmwareVersion'].invalid && taskForm.controls['firmwareVersion'].touched" class="alert alert-danger">
+                  <div *ngIf="taskForm.controls['firmwareVersion'].errors">
+                    Firmware version is required.
+                  </div>
+                </div>
               </div>
             </div>
 
             <div class="row mb-3">
               <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">Test Plan</label>
               <div class="col-sm-10">
-                <select required [(ngModel)]="testPlanSelected" name="testPlan" class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
+                <select required [(ngModel)]="testPlanSelected" name="testPlan" class="form-select" id="floatingSelect" aria-label="Floating label select example" required formControlName="testPlan">
                   <option *ngIf="isNewTask" [ngValue]="undefined" [disabled]="true">Choose Test Plan</option>
                   <option *ngIf="!isNewTask" [ngValue]="testPlanSelected">{{testPlanSelected}}</option>
                   <option *ngFor="let testPlan of uniqueTestPlans" [value]="testPlan">{{testPlan}}</option>
                 </select>
+                <div *ngIf="taskForm.controls['testPlan'].invalid && taskForm.controls['testPlan'].touched" class="alert alert-danger">
+                  <div *ngIf="taskForm.controls['testPlan'].errors">
+                    Firmware version is required.
+                  </div>
+                </div>
               </div>
             </div>
 
             <div class="row mb-3">
               <label for="inputEmail3" class="col-sm-6 col-form-label">Specify New Test Plan</label>
               <div class="col-sm-10">
-                
-                <input [(ngModel)]="newTestPlan" name="newTestPlan" class="form-control" id="inputEmail3">
-              </div>
+                <!-- <input [(ngModel)]="newTestPlan" name="newTestPlan" class="form-control" id="inputEmail3" required > -->
+                <!-- <div *ngIf="taskForm.controls['dateSelected'].invalid" class="alert alert-danger">
+                  <div *ngIf="taskForm.controls['dateSelected'].errors">
+                    Name is required.
+                  </div> -->
+                <!-- </div> -->
+            </div>
             </div>
 
             <div class="row mb-3">
@@ -64,11 +80,16 @@
                   [timePicker24Hour]="true"
                   [locale]="{ format: 'DD/MM/YYYY HH:mm', firstDay: 1 }"
                   [(ngModel)]="dateSelected"
-                  [minDate]="minStartDate"
                   name = "timeRange"
                   class="form-control" 
                   id="testPeriod"
+                  formControlName="dateSelected"
                 />
+                <div *ngIf="taskForm.controls['dateSelected'].invalid" class="alert alert-danger">
+                  <div *ngIf="taskForm.controls['dateSelected'].errors">
+                  Name is required.
+                </div>
+              </div>
                 <div class="col s6" style="margin-top: 0.5em; margin-left: 0.25em">
                   Start Date: {{dateSelected.startDate}}
                   <br>
@@ -77,9 +98,9 @@
               </div>
             </div>
 
-            <div class="modal-footer">
+             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="deleteTask()">Delete</button>
-              <button type="button" class="btn btn-primary" (click)="saveTask()">Save changes</button>
+              <button type="button" [disabled]="taskForm.invalid" class="btn btn-primary" (click)="saveTask()">Save changes</button>
             </div>
           </form>
         </div>
