@@ -17,7 +17,10 @@ export class GanttComponent implements OnInit, OnDestroy {
 
     // public Lightbox: QueryList<LightboxComponent>
     // private customLightBox : LightboxComponent
+<<<<<<< HEAD
 
+=======
+>>>>>>> a448045019b09c42827cedd3e0cb8d6aa94bdcc8
     constructor(){
         gantt.config.date_format = '%Y-%m-%d %H:%i';
         gantt.config.open_tree_initially = true;
@@ -89,7 +92,11 @@ export class GanttComponent implements OnInit, OnDestroy {
         };
     
         gantt.templates.grid_folder = () => {
+<<<<<<< HEAD
             return "<div class='gantt_tree_icon'><fa-icon [icon]=fa-solid fa-database fa-lg'></div>";
+=======
+            return "<div class='gantt_tree_icon'> <fa-icon [icon]=fa-solid fa-database fa-lg'></div>";
+>>>>>>> a448045019b09c42827cedd3e0cb8d6aa94bdcc8
         };
       
         gantt.templates.grid_file = () => {
@@ -159,6 +166,7 @@ export class GanttComponent implements OnInit, OnDestroy {
         gantt.init(this.ganttContainer.nativeElement);
         gantt.showDate(new Date())
         
+<<<<<<< HEAD
         gantt.attachEvent("onLoadEnd", function(){ 
           gantt.showDate(new Date(Date.now() - ( 1* 3600 * 1000 * 24))); 
           var tasks = gantt.getTaskByTime();
@@ -187,6 +195,8 @@ export class GanttComponent implements OnInit, OnDestroy {
         });
 
 
+=======
+>>>>>>> a448045019b09c42827cedd3e0cb8d6aa94bdcc8
         gantt.attachEvent("onTaskClick", (id, e) =>{
           if (e.target.className === "gantt_tree_icon gantt_close"){
             gantt.close(id)
@@ -199,12 +209,20 @@ export class GanttComponent implements OnInit, OnDestroy {
           if (taskLevel > 1){
             // prevent lightbox opening on servers and locations
             if (e.target.className === "gantt_add"){
+<<<<<<< HEAD
+=======
+              console.log("classname add")
+>>>>>>> a448045019b09c42827cedd3e0cb8d6aa94bdcc8
               this.callLightbox(id)
             }
             if (e.target.className === ""){
               this.callLightbox(id, false)
             }
           }
+<<<<<<< HEAD
+=======
+
+>>>>>>> a448045019b09c42827cedd3e0cb8d6aa94bdcc8
         })
 
         gantt.load("http://localhost:3000/data")
@@ -218,10 +236,13 @@ export class GanttComponent implements OnInit, OnDestroy {
             var exp = 4000;
             let i;
             console.log("here")
+<<<<<<< HEAD
             console.log("id: ", id)
             console.log("action: ", action)
             console.log("tid: ", tid)
             console.log("response: ", response)
+=======
+>>>>>>> a448045019b09c42827cedd3e0cb8d6aa94bdcc8
             switch (action){
               case "TaskAdded":
                 if(response.status === "Success"){

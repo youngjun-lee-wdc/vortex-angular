@@ -7,7 +7,11 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
+<<<<<<< HEAD
     "noPropertyAccessFromIndexSignature": false,
+=======
+    "noPropertyAccessFromIndexSignature": true,
+>>>>>>> a448045019b09c42827cedd3e0cb8d6aa94bdcc8
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,

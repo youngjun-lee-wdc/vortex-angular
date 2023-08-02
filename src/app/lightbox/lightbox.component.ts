@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
+<<<<<<< HEAD
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+=======
+import { FormGroup } from '@angular/forms';
+>>>>>>> a448045019b09c42827cedd3e0cb8d6aa94bdcc8
 import * as bootstrap from "bootstrap";
 import { Task, gantt } from 'opt/gantt_pro/codebase/dhtmlxgantt';
 declare var window: any;
@@ -28,6 +32,7 @@ export class LightboxComponent{
     @Input() task: any
     taskForm: FormGroup
 
+<<<<<<< HEAD
     constructor(private fb: FormBuilder){
       this.minStartDate = new Date().toISOString()
       this.dateSelected = {startDate: new Date(), endDate: new Date()}
@@ -41,6 +46,10 @@ export class LightboxComponent{
         // newTestPlan: [null],
         dateSelected: [null, Validators.required]
       })
+=======
+    constructor(){
+      this.minStartDate = new Date().toISOString()
+>>>>>>> a448045019b09c42827cedd3e0cb8d6aa94bdcc8
     }
 
     public showLightbox = (taskId: string | number, isNewTask: boolean) => {
@@ -57,16 +66,21 @@ export class LightboxComponent{
     }
 
     hideLightbox = () =>{
+<<<<<<< HEAD
       // reset forms for all options
       this.formModal.hide()
       this.testSuiteSelected = undefined
       this.testPlanSelected = undefined
       this.firmwareVersionSelected = undefined
       this.dateSelected = {startDate: new Date(), endDate: new Date()}
+=======
+      this.formModal.hide()
+>>>>>>> a448045019b09c42827cedd3e0cb8d6aa94bdcc8
     }
     
     cancel() {
       let task = gantt.getTask(this.taskId);
+<<<<<<< HEAD
       gantt.deleteTask(task.id);
       gantt.hideLightbox();
     }
@@ -105,6 +119,28 @@ export class LightboxComponent{
           })
         }
         console.log(taskToBeAdded)
+=======
+   
+      if(task.$new)
+      gantt.deleteTask(task.id);
+      gantt.hideLightbox();
+    }
+   
+    getForm() {
+      return document.getElementById("my-form");
+    };
+
+    deleteTask() {
+      gantt.deleteTask(this.taskId);
+      // gantt.hideLightbox();
+    }
+
+    saveTask(){
+      const task = this.newTask
+      console.log("test plan: ", this.testPlanSelected)
+      
+      if (this.isNewTask){
+>>>>>>> a448045019b09c42827cedd3e0cb8d6aa94bdcc8
         gantt.addTask({
           parent: this.taskId,
           text: this.testSuiteSelected,
@@ -118,8 +154,11 @@ export class LightboxComponent{
             end_date: new Date(this.dateSelected.endDate)
           })
         })
+<<<<<<< HEAD
         // const returnAdd = gantt.addTask(taskToBeAdded)
         // console.log(returnAdd)
+=======
+>>>>>>> a448045019b09c42827cedd3e0cb8d6aa94bdcc8
       }
 
       else{
@@ -137,10 +176,15 @@ export class LightboxComponent{
           })
       }
       this.hideLightbox()
+<<<<<<< HEAD
+=======
+      // gantt.hideLightbox();
+>>>>>>> a448045019b09c42827cedd3e0cb8d6aa94bdcc8
     }
 
 
     initLightBox(){
+<<<<<<< HEAD
 
         // restore values for selected test configs and populate dropdown before lightbox is shown
         if (!this.isNewTask){
@@ -156,6 +200,8 @@ export class LightboxComponent{
 
           // this.dateSelected = undefined
         }
+=======
+>>>>>>> a448045019b09c42827cedd3e0cb8d6aa94bdcc8
         try{
           const taskParent = gantt.getTask(this.newTask.parent!)
           const serverName = gantt.serverList(taskParent.text)
@@ -164,6 +210,17 @@ export class LightboxComponent{
         catch(e){
           console.log(e)
         }
+<<<<<<< HEAD
+=======
+        // restore values for selected test configs and populate dropdown before lightbox is shown
+        if (!this.isNewTask){
+          const selectedTask = gantt.getTask(this.taskId)
+          this.testSuiteSelected = selectedTask['text']
+          this.firmwareVersionSelected = selectedTask['FW_version']
+          this.testPlanSelected = selectedTask['test_plan_dropdown']
+          this.dateSelected = { startDate: selectedTask['start_date']!, endDate: selectedTask['end_date']! }
+        }
+>>>>>>> a448045019b09c42827cedd3e0cb8d6aa94bdcc8
         this['dutOptions'] = gantt.serverList("availablefirmwares").flatMap(((x: { value: any; })=> x.value))
     }
 
