@@ -141,7 +141,6 @@ export class GanttComponent implements OnInit, OnDestroy {
       this.customLightBox.showLightbox(taskId, isNewTask)
     }
     
-
     ngOnInit() {
         gantt.plugins({
             auto_scheduling: true,
@@ -241,7 +240,7 @@ export class GanttComponent implements OnInit, OnDestroy {
                   siblings.sort(function(a, b){return a-b})
                   if(siblings.length > 1){
                     gantt.addLink({
-                        id:1000000,
+                        id: Math.random(),
                         source: "vm-" + siblings[siblings.length - 2].toString(),
                         target: "vm-" + siblings[siblings.length - 1].toString(),
                         type:gantt.config.links.finish_to_start

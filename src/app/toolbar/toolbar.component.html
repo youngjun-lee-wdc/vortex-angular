@@ -1,45 +1,36 @@
 
 <div class="headerContainer">
     <h1>Vortex Portal</h1>
-</div> 
-
-<div class="header gantt-header" >
-    <ul class="gantt-controls">
-        
-        <li class="gantt-menu-item">        
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Toggle right offcanvas</button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <h2 id="offcanvasRightLabel">Charts Settings</h2>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">                
             <input 
-                class="form-control" style="width: 15em"
-                placeholder="Filter"
-                (input)="filterInput()"
-                id="filter"
-            >
-        </li>
-
-        <li class="gantt-menu-item"><a (click)="collapseAll()"><img src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_collapse_all_24.png">Collapse All</a></li>
-        <li class="gantt-menu-item gantt-menu-item-last"><a (click)="expandAll()"><img src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_expand_all_24.png">Expand All</a></li>
-        <li class="gantt-menu-item"><a (click)="undoFunction()"><img src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_undo_24.png">Undo</a></li>
-        <li class="gantt-menu-item gantt-menu-item-last"><a onclick="redoFunction()"><img src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_redo_24.png">Redo</a></li>
-        <li class="gantt-menu-item"><a (click)="toggleAutoScheduling()"><img src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_auto_scheduling_24.png">Auto Scheduling</a></li>
-
-        <li class="gantt-menu-item gantt-menu-item-right"><a data-action="fullscreen"><img src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_fullscreen_24.png">Fullscreen</a></li>
-        
-        <li class="gantt-menu-item gantt-menu-item-right gantt-menu-item-last"><a (click)="zoomOut()"><img
-                    src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_zoom_to_fit_24.png">Zoom to Fit</a>
-        </li>
-
-        <!-- <li class="gantt-menu-item gantt-menu-item-right gantt-menu-item-last"><a (click)="toggleMode(this)"><img -->
-            <!-- src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_zoom_to_fit_24.png">Zoom to Fit</a> -->
-<!-- </li> -->
-        <li class="gantt-menu-item gantt-menu-item-right"><a (click)="zoomOut()"><img
-                    src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_zoom_out.png">Zoom Out</a>
-        </li>
-        <li class="gantt-menu-item gantt-menu-item-right"><a (click)="zoomIn()"><img
-                    src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_zoom_in.png">Zoom In</a>
-        </li>
-
-        <li class="gantt-menu-item"><a (click)="pdfExport()"><i class="fa-regular fa-file-pdf fa-lg" style="padding: 5px;"></i>Export to PDF</a></li>
-        <li class="gantt-menu-item"><a (click)="pngExport()"><i class="fa-regular fa-file-image fa-lg" style="padding: 5px;"></i>Export to PNG</a></li>
-        <li class="gantt-menu-item"><a (click)="jsonExport()"><i class="fa-regular fa-file-code fa-lg" style="padding: 5px;"></i>Export to JSON</a></li>
-
+            class="form-control" style="width: 15em"
+            placeholder="Filter"
+            (input)="filterInput()"
+            id="filter">
+            </li>
+            <li class="list-group-item"><a href="#" class="list-group-item list-group-item-action" (click)="collapseAll()"><img src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_collapse_all_24.png">Collapse All</a></li>
+            <li class="list-group-item"><a href="#" class="list-group-item list-group-item-action" (click)="expandAll()"><img src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_expand_all_24.png">Expand All</a></li>
+            <li class="list-group-item"><a href="#" class="list-group-item list-group-item-action" (click)="undoFunction()"><img src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_undo_24.png">Undo</a></li>
+            <li class="list-group-item"><a href="#" class="list-group-item list-group-item-action" onclick="redoFunction()"><img src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_redo_24.png">Redo</a></li>
+            <li class="list-group-item"><a href="#" class="list-group-item list-group-item-action" (click)="toggleAutoScheduling()"><img src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_auto_scheduling_24.png">Auto Scheduling</a></li>
+            <li class="list-group-item"><a href="#" class="list-group-item list-group-item-action" data-action="fullscreen"><img src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_fullscreen_24.png">Fullscreen</a></li>
+            <li class="list-group-item"><a href="#" class="list-group-item list-group-item-action" (click)="zoomOut()"><img src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_zoom_to_fit_24.png">Zoom to Fit</a></li>
+            <li class="list-group-item"><a href="#" class="list-group-item list-group-item-action" (click)="zoomOut()"><img src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_zoom_out.png">Zoom Out</a></li>
+            <li class="list-group-item"><a href="#" class="list-group-item list-group-item-action" (click)="zoomIn()"><img src="https://dhtmlx.com/docs/products/demoApps/advanced-gantt-chart/demo/imgs/ic_zoom_in.png">Zoom In</a></li>
+            <li class="list-group-item"><a href="#" class="list-group-item list-group-item-action" (click)="pdfExport()"><i class="fa-regular fa-file-pdf fa-lg" style="padding: 5px;"></i>Export to PDF</a></li>
+            <li class="list-group-item"><a href="#" class="list-group-item list-group-item-action" (click)="pngExport()"><i class="fa-regular fa-file-image fa-lg" style="padding: 5px;"></i>Export to PNG</a></li>
+            <li class="list-group-item"><a href="#" class="list-group-item list-group-item-action" (click)="jsonExport()"><i class="fa-regular fa-file-code fa-lg" style="padding: 5px;"></i>Export to JSON</a></li>
     </ul>
+  <div>
+
+  </div>
 </div>
+
+</div> 
