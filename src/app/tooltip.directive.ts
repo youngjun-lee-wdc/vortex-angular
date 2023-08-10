@@ -24,7 +24,7 @@ interface tooltipsFormat {
 
 export class TooltipDirective {
 
-  ngAfterContentInit() {
+  ngAfterViewInit() {
     gantt.templates.tooltip_text = (start, end, task) => {
       // console.log(task)
       const tooltips_data: tooltipsFormat = {

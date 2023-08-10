@@ -215,11 +215,6 @@ export class GanttComponent implements OnInit, OnDestroy {
         dp.attachEvent("onAfterUpdate", function(id: string | number, action: any, tid: string | number, response: { status: string; }){  
             var exp = 4000;
             let i;
-            console.log("here")
-            console.log("id: ", id)
-            console.log("action: ", action)
-            console.log("tid: ", tid)
-            console.log("response: ", response)
             switch (action){
               case "TaskAdded":
                 if(response.status === "Success"){

@@ -21,7 +21,7 @@ export class LightboxComponent{
     public testSuiteSelected: any
     public firmwareVersionSelected: any;
     public testPlanSelected: any
-    public newTestPlan: string
+    public newTestPlan: string | undefined
     public dateSelected: {startDate: Date , endDate: Date};
     public uniqueTestPlans: any
     public isNewTask: boolean
@@ -38,7 +38,7 @@ export class LightboxComponent{
         testSuite: [null, Validators.required],
         firmwareVersion: [null, Validators.required],
         testPlan: [null, Validators.required],
-        // newTestPlan: [null],
+        newTestPlan: [null],
         dateSelected: [null, Validators.required]
       })
     }
@@ -62,6 +62,7 @@ export class LightboxComponent{
       this.testSuiteSelected = undefined
       this.testPlanSelected = undefined
       this.firmwareVersionSelected = undefined
+      this.newTestPlan = undefined
       this.dateSelected = {startDate: new Date(), endDate: new Date()}
     }
     
@@ -82,15 +83,14 @@ export class LightboxComponent{
     }
 
     saveTask(){
-
       if (this.taskForm.invalid){
         console.log("invalid form")
         return
       }
-      const task = this.newTask
 
       
       if (this.isNewTask){
+        console.log("this.newTestPlan: ", this.newTestPlan)
         const taskToBeAdded = {
           parent: this.taskId,
           text: this.testSuiteSelected,
@@ -153,9 +153,8 @@ export class LightboxComponent{
           this.dateSelected = { startDate: selectedTask['start_date']!, endDate: selectedTask['end_date']! }
         }
         else{
-
           // this.dateSelected = undefined
-        }
+          }
         try{
           const taskParent = gantt.getTask(this.newTask.parent!)
           const serverName = gantt.serverList(taskParent.text)
@@ -169,15 +168,17 @@ export class LightboxComponent{
 
     getUniqueTestPlans(){
       let options:any = []   
-      gantt.eachTask((task)=>{
+      gantt.eachTask((task: Task) =>{
         const entry1 = task.test_plan_writein;
         if (entry1 && !(options.includes(entry1))){
           options.push(entry1)
         }
+        
         const entry2 = task.test_plan_dropdown
         if (entry2 && !(options.includes(entry2))){
           options.push(entry2)
         }
+        
         if (options.includes("NaN")){ 
           options.splice(options.indexOf("NaN"), 1);        
         }

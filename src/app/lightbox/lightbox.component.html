@@ -50,7 +50,7 @@
                 </select>
                 <div *ngIf="taskForm.controls['testPlan'].invalid && taskForm.controls['testPlan'].touched" class="alert alert-danger">
                   <div *ngIf="taskForm.controls['testPlan'].errors">
-                    Firmware version is required.
+                    Test plan is required.
                   </div>
                 </div>
               </div>
@@ -59,12 +59,12 @@
             <div class="row mb-3">
               <label for="inputEmail3" class="col-sm-6 col-form-label">Specify New Test Plan</label>
               <div class="col-sm-10">
-                <!-- <input [(ngModel)]="newTestPlan" name="newTestPlan" class="form-control" id="inputEmail3" required > -->
-                <!-- <div *ngIf="taskForm.controls['dateSelected'].invalid" class="alert alert-danger">
-                  <div *ngIf="taskForm.controls['dateSelected'].errors">
-                    Name is required.
-                  </div> -->
-                <!-- </div> -->
+                <input [(ngModel)]="newTestPlan" name="newTestPlan" class="form-control" id="inputEmail3" required formControlName="newTestPlan">
+                <div *ngIf="taskForm.controls['newTestPlan'].invalid && taskForm.controls['newTestPlan'].touched" class="alert alert-danger">
+                  <div *ngIf="taskForm.controls['newTestPlan'].errors">
+                    New Test Plan is required.
+                  </div>
+                </div>
             </div>
             </div>
 

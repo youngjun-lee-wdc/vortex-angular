@@ -23,6 +23,7 @@
     "@shoelace-style/shoelace": "^2.5.2",
     "@types/bootstrap": "^5.2.6",
     "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.5",
     "dhtmlx-gantt": "file:opt/gantt_pro",
     "jquery": "^3.7.0",
     "ngx-bootstrap": "^11.0.2",
