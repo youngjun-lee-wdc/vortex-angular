@@ -15,6 +15,7 @@ import { MarkerDirective } from './marker.directive';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { TooltipDirective } from './tooltip.directive';
 import { ZoomDirective } from './zoom.directive';
+import { MinimapDirective } from './minimap.directive';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ZoomDirective } from './zoom.directive';
     MarkerDirective,
     TooltipDirective,
     ZoomDirective,
+    MinimapDirective,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [

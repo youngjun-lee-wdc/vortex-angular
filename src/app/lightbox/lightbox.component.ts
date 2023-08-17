@@ -1,8 +1,18 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as bootstrap from "bootstrap";
 import { Task, gantt } from 'opt/gantt_pro/codebase/dhtmlxgantt';
 declare var window: any;
+
+
+// interface TaskForm {
+//   testSuites: FormControl<any>
+//   firmwareVersionSelected: FormControl<any>
+//   testPlanSelected: FormControl<any>
+//   newTestPlan?: FormControl<any>
+//   dateSelected: FormControl<any>
+// }
+
 
 @Component({
   selector: 'app-lightbox',
@@ -35,18 +45,18 @@ export class LightboxComponent{
 
     ngOnInit(){
       this.taskForm = this.fb.group({
-        testSuite: [null, Validators.required],
-        firmwareVersion: [null, Validators.required],
-        testPlan: [null, Validators.required],
-        newTestPlan: [null],
-        dateSelected: [null, Validators.required]
+        testSuite: ['', Validators.required],
+        firmwareVersion: ['', Validators.required],
+        testPlan: ['', Validators.required],
+        newTestPlan: [''],
+        dateSelected: ['', Validators.required]
       })
     }
 
     public showLightbox = (taskId: string | number, isNewTask: boolean) => {
       this.isNewTask = isNewTask
       this.formModal = new window.bootstrap.Modal(
-        document.getElementById("exampleModal")
+        document.getElementById("lightboxModal")
       )
       this.taskId = taskId
       this.newTask = gantt.getTask(taskId)
@@ -56,7 +66,7 @@ export class LightboxComponent{
       myModal.show()
     }
 
-    hideLightbox = () =>{
+    private hideLightbox = () =>{
       // reset forms for all options
       this.formModal.hide()
       this.testSuiteSelected = undefined
@@ -66,13 +76,13 @@ export class LightboxComponent{
       this.dateSelected = {startDate: new Date(), endDate: new Date()}
     }
     
-    cancel() {
+    public cancel() {
       let task = gantt.getTask(this.taskId);
       gantt.deleteTask(task.id);
       gantt.hideLightbox();
     }
 
-    deleteTask() {
+    public deleteTask() {
       if (this.isNewTask){
         this.hideLightbox()
       }
@@ -82,7 +92,7 @@ export class LightboxComponent{
         // gantt.hideLightbox();
     }
 
-    saveTask(){
+    public saveTask(){
       if (this.taskForm.invalid){
         console.log("invalid form")
         return
@@ -140,7 +150,7 @@ export class LightboxComponent{
     }
 
 
-    initLightBox(){
+    private initLightBox(){
 
         // restore values for selected test configs and populate dropdown before lightbox is shown
         if (!this.isNewTask){
@@ -166,7 +176,7 @@ export class LightboxComponent{
         this['dutOptions'] = gantt.serverList("availablefirmwares").flatMap(((x: { value: any; })=> x.value))
     }
 
-    getUniqueTestPlans(){
+    private getUniqueTestPlans(){
       let options:any = []   
       gantt.eachTask((task: Task) =>{
         const entry1 = task.test_plan_writein;

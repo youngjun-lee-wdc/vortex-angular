@@ -12,6 +12,35 @@
   align-items: center;
 }
 
+.gantt_tree_icon.gantt_open{
+  /* background-color: red; */
+  /* background-image: none; */
+  background: rgba(2,2,2,.01);
+}
+
+.gantt_tree_icon.gantt_close{
+  /* background-color: red; */
+  /* background-image: none; */
+  /* background: rgba(2,2,2,.01); */
+}
+
+.gantt_tree_icon.gantt_close, .gantt_tree_icon.gantt_open{
+    background: rgba(2,2,2,.01);
+}
+/* .bi{ */
+  /* font-size: 12px; */
+  /* pointer-events: none; */
+/* } */
+.bi{
+  margin-right: 5px;
+}
+
+.bi-chevron-right, .bi-chevron-down{
+  cursor: pointer;
+  pointer-events: none;
+	font-size: 12px;
+  padding-right: 5px;
+}
 .gantt_cal_light {
   height: auto !important;
 }
@@ -185,4 +214,10 @@
   height: 20px;
   margin-top: -28px;
   margin-left: 74px;
+}
+
+.gantt_tree_icon{
+  /* height:20px; */
+  /* width: 20px; */
+  font-size: 23px;
 }

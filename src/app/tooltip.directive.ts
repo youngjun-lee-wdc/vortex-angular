@@ -26,7 +26,6 @@ export class TooltipDirective {
 
   ngAfterViewInit() {
     gantt.templates.tooltip_text = (start, end, task) => {
-      // console.log(task)
       const tooltips_data: tooltipsFormat = {
          "3":{
               TestSuite: task.text,

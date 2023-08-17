@@ -1,5 +1,5 @@
 <!-- <app-lightbox> -->
-  <div class="modal fade" #exampleModal id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+  <div class="modal fade" #lightboxModal id="lightboxModal" tabindex="-1" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -59,12 +59,12 @@
             <div class="row mb-3">
               <label for="inputEmail3" class="col-sm-6 col-form-label">Specify New Test Plan</label>
               <div class="col-sm-10">
-                <input [(ngModel)]="newTestPlan" name="newTestPlan" class="form-control" id="inputEmail3" required formControlName="newTestPlan">
-                <div *ngIf="taskForm.controls['newTestPlan'].invalid && taskForm.controls['newTestPlan'].touched" class="alert alert-danger">
+                <input [(ngModel)]="newTestPlan" name="newTestPlan" class="form-control" id="inputEmail3" formControlName="newTestPlan">
+                <!-- <div *ngIf="taskForm.controls['newTestPlan'].invalid && taskForm.controls['newTestPlan'].touched" class="alert alert-danger">
                   <div *ngIf="taskForm.controls['newTestPlan'].errors">
                     New Test Plan is required.
                   </div>
-                </div>
+                </div> -->
             </div>
             </div>
 
