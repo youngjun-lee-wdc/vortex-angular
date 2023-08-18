@@ -4,12 +4,23 @@
   /* width: 100%; */
   /* height: 100%; */
   height: 93.5%;
+  font-family: Roboto, "Helvetica Neue", sans-serif !important;
 }
 
 .gantt_tree_icon {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+
+.gantt_grid_scale{
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.gantt_container{
+  font-family: inherit;
 }
 
 .gantt_tree_icon.gantt_open{

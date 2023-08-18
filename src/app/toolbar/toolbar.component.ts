@@ -9,7 +9,86 @@ import { gantt } from 'opt/gantt_pro/codebase/dhtmlxgantt';
 })
 export class ToolbarComponent {
   selected?: string;
+  servers: string[]
+  filtersWrapper: HTMLElement | null
+  filtersInputs: HTMLCollectionOf<HTMLInputElement> | undefined
 
+  constructor(){
+    this.servers = []
+    this.filtersWrapper = document.getElementById("filtersWrapper")
+    this.filtersInputs = this.filtersWrapper?.getElementsByTagName("input")
+  }
+
+  ngOnChanges(){
+    for (var i = 0; i < this.filtersInputs!.length; i++) {
+      var filterInput = this.filtersInputs![i];
+      console.log(this.filtersInputs)
+      console.log("here")
+      // attach event handler to update filters object and refresh data (so filters will be applied)
+      filterInput.onchange = function () {
+        gantt.refreshData();
+      }
+    }
+  }
+  
+  public switchUpdated = (e: any) =>{
+    console.log("here")
+    console.log(e)
+  }
+
+  ngAfterViewInit(){
+    const tempServers: any[] = []
+    const filtersWrapper = document.getElementById("filtersWrapper")
+    const filtersInputs = filtersWrapper?.getElementsByTagName("input")
+
+
+    gantt.attachEvent("onAfterTaskUpdate",  (id, task) => {
+      if (!tempServers.includes(task.id)){
+        filtersWrapper!.innerHTML+= `
+        <div class="form-check" >
+          <input [(ngModel)]="colorCode"   [checked]="true"  class="form-check-input" name="${task.id}" type="checkbox" id="flexSwitchCheckDefault" (change)="switchUpdated($event)" >
+          <label class="form-check-label" for="flexSwitchCheckDefault">${task.id}</label>
+        </div>`
+      }
+    this.filtersWrapper = filtersWrapper
+    
+    for (let i = 0; i < filtersInputs!.length; i++) {
+      let filterInput = filtersInputs![i];
+      if (filterInput.checked) {
+        if (hasPriority(id, filterInput.name)) {
+          return true;
+        }
+      }
+    }
+    return false;
+    });
+
+    const hasPriority = (parent: string | number, priority: any) => {
+      
+      if (parent == priority){
+        return true;
+      }
+  
+      var child = gantt.getChildren(parent);
+      for (var i = 0; i < child.length; i++) {
+        if (hasPriority(child[i], priority))
+          return true;
+      }
+      return false;
+    }
+    for (var i = 0; i < filtersInputs!.length; i++) {
+      var filterInput = filtersInputs![i];
+
+      // attach event handler to update filters object and refresh data (so filters will be applied)
+      filterInput.onchange = function () {
+        gantt.refreshData();
+        // updIcon(this);
+      }
+    }
+  }
+
+
+  
   collapseAll = (): void => {
     gantt.eachTask((task: { $open: boolean }) => {
       task.$open = false;
@@ -112,4 +191,9 @@ export class ToolbarComponent {
     changeDetector();
     filterData = '';
   };
+
+
+  
+
+
 }
