@@ -14,6 +14,7 @@
     tabindex="-1"
     id="offcanvasRight"
     aria-labelledby="offcanvasRightLabel"
+    data-disableScrolling="false"
   >
     <div class="offcanvas-header">
       <h2 id="offcanvasRightLabel">Chart Settings</h2>
@@ -28,6 +29,12 @@
     <ul class="list-group list-group-flush">
       <div class="filtersWrapper" id="filtersWrapper">
         <span>Display tasks with priority:</span>
+        <div *ngFor="let filter of filtersContent | keyvalue">
+          <div class="form-check" >
+            <input class="form-check-input" name={{filter.key}} type="checkbox" (change)="switchUpdated()">
+            <label class="form-check-label" for="flexSwitchCheckDefault">{{filter.key}}</label>  
+            </div>
+        </div>
         <!-- <label id="scale1"> -->
           <!-- <input type="checkbox" name="VM-CL-Irvine-ARM-AWS-STG-Fedora_StdwFIO_4K" checked/> -->
           <!-- <i class="material-icons icon_color"></i>VM-CL-Irvine-ARM-AWS-STG-Fedora_StdwFIO_4K -->

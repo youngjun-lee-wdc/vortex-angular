@@ -1,147 +1,104 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { SlDrawer } from '@shoelace-style/shoelace';
+import { Component } from '@angular/core';
 import { gantt } from 'opt/gantt_pro/codebase/dhtmlxgantt';
+
+interface filterContentType {
+  [key: string]: {
+      id: string;
+      parent?: string;      
+  }
+}
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.css'],
 })
+
+
+
 export class ToolbarComponent {
   selected?: string;
   servers: string[]
   filtersWrapper: HTMLElement | null
   filtersInputs: HTMLCollectionOf<HTMLInputElement> | undefined
+  filtersContent: filterContentType
 
   constructor(){
     this.servers = []
     this.filtersWrapper = document.getElementById("filtersWrapper")
     this.filtersInputs = this.filtersWrapper?.getElementsByTagName("input")
+    this.filtersContent = {}
   }
 
-  ngOnChanges(){
-    for (var i = 0; i < this.filtersInputs!.length; i++) {
-      var filterInput = this.filtersInputs![i];
-      console.log(this.filtersInputs)
-      console.log("here")
-      // attach event handler to update filters object and refresh data (so filters will be applied)
-      filterInput.onchange = function () {
-        gantt.refreshData();
-      }
-    }
+  ngOnInit(){
+    this.getFiltersContent();
   }
   
-  public switchUpdated = (e: any) =>{
-    console.log("here")
-    console.log(e)
-  }
-
-  ngAfterViewInit(){
-    const tempServers: any[] = []
-    const filtersWrapper = document.getElementById("filtersWrapper")
-    const filtersInputs = filtersWrapper?.getElementsByTagName("input")
-
-
+  public getFiltersContent(){
     gantt.attachEvent("onAfterTaskUpdate",  (id, task) => {
-      if (!tempServers.includes(task.id)){
-        filtersWrapper!.innerHTML+= `
-        <div class="form-check" >
-          <input [(ngModel)]="colorCode"   [checked]="true"  class="form-check-input" name="${task.id}" type="checkbox" id="flexSwitchCheckDefault" (change)="switchUpdated($event)" >
-          <label class="form-check-label" for="flexSwitchCheckDefault">${task.id}</label>
-        </div>`
-      }
-    this.filtersWrapper = filtersWrapper
-    
-    for (let i = 0; i < filtersInputs!.length; i++) {
-      let filterInput = filtersInputs![i];
-      if (filterInput.checked) {
-        if (hasPriority(id, filterInput.name)) {
-          return true;
-        }
-      }
-    }
-    return false;
-    });
-
-    const hasPriority = (parent: string | number, priority: any) => {
-      
-      if (parent == priority){
-        return true;
-      }
-  
-      var child = gantt.getChildren(parent);
-      for (var i = 0; i < child.length; i++) {
-        if (hasPriority(child[i], priority))
-          return true;
-      }
-      return false;
-    }
-    for (var i = 0; i < filtersInputs!.length; i++) {
-      var filterInput = filtersInputs![i];
-
-      // attach event handler to update filters object and refresh data (so filters will be applied)
-      filterInput.onchange = function () {
-        gantt.refreshData();
-        // updIcon(this);
-      }
-    }
+      this.filtersContent[task.id] = {id: task.id, parent: task.parent}
+    })
   }
-
-
   
-  collapseAll = (): void => {
+  public switchUpdated = () =>{
+    console.log("here")
+    // gantt.refreshData()
+  }
+  
+  public collapseAll = (): void => {
     gantt.eachTask((task: { $open: boolean }) => {
       task.$open = false;
     });
     gantt.render();
   };
-  expandAll = (): void => {
+  public expandAll = (): void => {
     gantt.eachTask((task: { $open: boolean }) => {
       task.$open = true;
     });
     gantt.render();
   };
 
-  undoFunction = (): void => {
+  public undoFunction = (): void => {
     gantt.undo();
   };
 
-  redoFunction = (): void => {
+  public redoFunction = (): void => {
     gantt.redo();
   };
 
-  toggleAutoScheduling = (): void => {
+  public toggleAutoScheduling = (): void => {
     gantt.config.auto_scheduling = !gantt.config.auto_scheduling;
   };
 
-  zoomOut = (): void => {
+  public zoomOut = (): void => {
     gantt.ext.zoom.zoomOut();
   };
 
-  zoomIn = (): void => {
+  public zoomIn = (): void => {
     gantt.ext.zoom.zoomIn();
   };
 
-  pdfExport = (): void => {
+  public pdfExport = (): void => {
     gantt.exportToPDF({
       raw: true,
     });
   };
 
-  pngExport = (): void => {
+  public pngExport = (): void => {
     // workaround for the bug with the export
     gantt.exportToPNG();
   };
 
-  jsonExport = (): void => {
+  public jsonExport = (): void => {
     gantt.exportToJSON();
   };
 
-  onSearchChange = (): void => {
+  public onSearchChange = (): void => {
     let search_box = document.getElementById('filter');
     console.log((search_box! as HTMLInputElement).value);
   };
-  filterInput = () => {
+  
+  public filterInput = () => {
     let filterData: string;
     let searchBox = document.getElementById('filter');
 

@@ -6,7 +6,9 @@
   margin-bottom: 0.5em;
 }
 
-
+.offcanvas{
+  overflow-y: scroll;
+}
 
 .gantt-header {
   border-top: 1px solid #cecece;
