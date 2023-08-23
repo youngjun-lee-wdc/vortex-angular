@@ -10,6 +10,27 @@
   overflow-y: scroll;
 }
 
+.filtersWrapper{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 5px;
+  width: 75%;
+  margin-left: 1em;
+  /* overflow: hidden; */
+}
+.checkboxFilters{
+  text-overflow: ellipsis;
+  overflow:hidden;
+  width: auto;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* width: 75%; */
+  /* align-items: flex-start; */
+  /* justify-content: center; */
+  /* margin-left: 1.5em; */
+  
+}
+
 .gantt-header {
   border-top: 1px solid #cecece;
   border-left: 1px solid #cecece;

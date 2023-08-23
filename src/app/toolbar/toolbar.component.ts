@@ -14,20 +14,20 @@ interface filterContentType {
   styleUrls: ['./toolbar.component.css'],
 })
 
-
-
 export class ToolbarComponent {
   selected?: string;
   servers: string[]
   filtersWrapper: HTMLElement | null
   filtersInputs: HTMLCollectionOf<HTMLInputElement> | undefined
   filtersContent: filterContentType
+  levels: {[id: string]: boolean}
 
   constructor(){
     this.servers = []
     this.filtersWrapper = document.getElementById("filtersWrapper")
     this.filtersInputs = this.filtersWrapper?.getElementsByTagName("input")
     this.filtersContent = {}
+    this.levels = {}
   }
 
   ngOnInit(){
@@ -37,13 +37,86 @@ export class ToolbarComponent {
   public getFiltersContent(){
     gantt.attachEvent("onAfterTaskUpdate",  (id, task) => {
       this.filtersContent[task.id] = {id: task.id, parent: task.parent}
+      this.levels[id] = true
     })
   }
   
-  public switchUpdated = () =>{
-    console.log("here")
+  public switchUpdated = (checkbox: any) => {
+    // gantt.render()
     // gantt.refreshData()
+    const checked = checkbox.target.checked;
+    const checkboxFilter = checkbox.target.name
+    this.levels[checkboxFilter] = checked
+    
+    const changeDetector = () => {
+        gantt.refreshData();
+    };
+    
+    const compareInput = (id: string ) => {
+      console.log(this.levels)
+      return this.levels[id]
+      if (!id.startsWith('vm')){
+
+        return this.levels[id]
+      }
+      // if (id.startsWith("vm")){
+        // console.log(this.levels[id])
+        // return this.levels[id]
+      // }
+      // return false
+      // return id !== checkboxFilter
+      // console.log(this.levels[id])
+      // return this.levels[id]
+      return false
+    }
+
+    gantt.attachEvent("onBeforeTaskDisplay", (id, task) => {
+      // console.log(id)
+      // return(task.parent === checkboxFilter)
+      return compareInput(id)
+
+      // return task.parent == id
+    })
+    changeDetector()
   }
+    
+    // const updateFilters = (checked: boolean, checkboxFilter: string) => {
+      // console.log(this.filtersContent)
+      // console.log(typeof checkboxFilter)
+      // console.log(!(checkboxFilter in this.filtersContent))
+    // }
+    
+    
+    // const changeDetector = () => {
+    //   gantt.refreshData();
+    // };
+    
+    // const compareInput = (id: string|number) =>{
+    //     let match = false
+    //     // console.log(gantt
+    //       // .getTask(id).text)
+    //     // console.log(this.filtersContent)
+    //     // console.log(gantt.getTask(id).parent)
+    //     // console.log(gantt.getTask(id).parent)
+    //     if (gantt.getTask(id).parent!.toString() in this.filtersContent){
+    //       match = true
+    //     }
+    //     // gantt.refreshData()
+    //     return match
+    // }
+    
+    // gantt.attachEvent("onBeforeTaskDisplay", (id, task)=>{
+      // return true
+      // gantt.refreshData()
+      // return compareInput(id) ? true : false
+
+        // if (gantt.getTask(id) in this.filtersContent)
+      
+    // })
+    
+    // changeDetector()
+    // gantt.refreshData()
+    // updateFilters(checked, checkboxFilter)
   
   public collapseAll = (): void => {
     gantt.eachTask((task: { $open: boolean }) => {
@@ -93,16 +166,16 @@ export class ToolbarComponent {
     gantt.exportToJSON();
   };
 
-  public onSearchChange = (): void => {
-    let search_box = document.getElementById('filter');
-    console.log((search_box! as HTMLInputElement).value);
-  };
+  // public onSearchChange = (): void => {
+  //   let searchBox = document.getElementById('filter');
+  //   console.log((searchBox! as HTMLInputElement).value);
+  // };
   
   public filterInput = () => {
     let filterData: string;
     let searchBox = document.getElementById('filter');
 
-    gantt.attachEvent('onDataRender', function () {
+    gantt.attachEvent('onDataRender', () => {
       searchBox = document.getElementById('filter');
     });
 
@@ -115,21 +188,19 @@ export class ToolbarComponent {
       let match = false;
     
       // Check if the task's text matches the filter data
-      if (
-        gantt
+      if (gantt
           .getTask(id)
           .text.toLowerCase()
           .indexOf(filterData.toLowerCase()) >= 0
-      ) {
-        match = true;
+          ) {
+          match = true;
       }
     
       // If the task has children, check if any child matches the filter data
       if (gantt.hasChild(id)) {
-        gantt.eachTask((child_object) => {
-          if (
-            gantt
-              .getTask(child_object.id)
+        gantt.eachTask((childObject) => {
+          if (gantt
+              .getTask(childObject.id)
               .text.toLowerCase()
               .indexOf(filterData.toLowerCase()) >= 0
           ) {
@@ -140,7 +211,6 @@ export class ToolbarComponent {
     
       return match;
     };
-    
 
     gantt.attachEvent('onBeforeTaskDisplay', (id) => {
       return compareInput(id) ? true : false;
@@ -148,9 +218,4 @@ export class ToolbarComponent {
     changeDetector();
     filterData = '';
   };
-
-
-  
-
-
 }

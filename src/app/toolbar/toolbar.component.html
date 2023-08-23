@@ -27,19 +27,8 @@
     </div>
 
     <ul class="list-group list-group-flush">
-      <div class="filtersWrapper" id="filtersWrapper">
-        <span>Display tasks with priority:</span>
-        <div *ngFor="let filter of filtersContent | keyvalue">
-          <div class="form-check" >
-            <input class="form-check-input" name={{filter.key}} type="checkbox" (change)="switchUpdated()">
-            <label class="form-check-label" for="flexSwitchCheckDefault">{{filter.key}}</label>  
-            </div>
-        </div>
-        <!-- <label id="scale1"> -->
-          <!-- <input type="checkbox" name="VM-CL-Irvine-ARM-AWS-STG-Fedora_StdwFIO_4K" checked/> -->
-          <!-- <i class="material-icons icon_color"></i>VM-CL-Irvine-ARM-AWS-STG-Fedora_StdwFIO_4K -->
-        <!-- </label> -->
-      </div>
+      <!-- <span>Display tasks with priority:</span> -->
+
         <input
           class="form-control"
           style="width: 15em"
@@ -47,7 +36,14 @@
           (input)="filterInput()"
           id="filter"
         />
-
+        <div class="filtersWrapper" id="filtersWrapper">
+          <div class="checkboxFilters" *ngFor="let filter of filtersContent | keyvalue">
+            <div class="form-check form-switch" >
+              <input class="form-check-input" checked name={{filter.key}} type="checkbox" (change)="switchUpdated($event)">
+              <label class="form-check-label" for="flexSwitchCheckDefault">{{filter.key}}</label>  
+              </div>
+          </div>
+        </div>
         <a
           href="#"
           class="list-group-item list-group-item-action"
