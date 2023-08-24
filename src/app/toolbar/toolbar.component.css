@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 #filter {
-  width: 300px;
+  width: 85%;
   margin-left: 0.5em;
   margin-bottom: 0.5em;
 }
@@ -14,21 +14,15 @@
   display: grid;
   grid-template-columns: auto auto auto;
   gap: 5px;
-  width: 75%;
+  width: 85%;
   margin-left: 1em;
   /* overflow: hidden; */
 }
 .checkboxFilters{
-  text-overflow: ellipsis;
-  overflow:hidden;
   width: auto;
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* width: 75%; */
-  /* align-items: flex-start; */
-  /* justify-content: center; */
-  /* margin-left: 1.5em; */
-  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .gantt-header {

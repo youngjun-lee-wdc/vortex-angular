@@ -31,7 +31,6 @@
 
         <input
           class="form-control"
-          style="width: 15em"
           placeholder="Filter"
           (input)="filterInput()"
           id="filter"
@@ -40,23 +39,24 @@
           <div class="checkboxFilters" *ngFor="let filter of filtersContent | keyvalue">
             <div class="form-check form-switch" >
               <input class="form-check-input" checked name={{filter.key}} type="checkbox" (change)="switchUpdated($event)">
-              <label class="form-check-label" for="flexSwitchCheckDefault">{{filter.key}}</label>  
+              <div id="#tooltip" data-toggle="tooltip" title={{filter.key}}><label class="form-check-label" for="flexSwitchCheckDefault">{{filter.key}}</label></div>
+                
               </div>
           </div>
         </div>
+        <a
+        href="#"
+        class="list-group-item list-group-item-action"
+        (click)="expandAll()"
+        >
+        <i class="bi bi-chevron-expand"></i>Expand All
+        </a>
         <a
           href="#"
           class="list-group-item list-group-item-action"
           (click)="collapseAll()"
           ><i class="bi bi-chevron-contract"></i>Collapse All
         </a>
-        <a
-          href="#"
-          class="list-group-item list-group-item-action"
-          (click)="expandAll()"
-          >
-          <i class="bi bi-chevron-expand"></i>Expand All
-          </a>
         <a
           href="#"
           class="list-group-item list-group-item-action"
@@ -82,7 +82,7 @@
         <a
           href="#"
           class="list-group-item list-group-item-action"
-          data-action="fullscreen"
+          (click)="fullscreen()"
           >
           <i class="bi bi-arrows-fullscreen"></i>Fullscreen
         </a>
