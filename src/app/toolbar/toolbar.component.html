@@ -17,6 +17,7 @@
     data-disableScrolling="false"
   >
     <div class="offcanvas-header">
+
       <h2 id="offcanvasRightLabel">Chart Settings</h2>
       <button
         type="button"
@@ -39,9 +40,11 @@
           <div class="checkboxFilters" *ngFor="let filter of filtersContent | keyvalue">
             <div class="form-check form-switch" >
               <input class="form-check-input" checked name={{filter.key}} type="checkbox" (change)="switchUpdated($event)">
-              <div id="#tooltip" data-toggle="tooltip" title={{filter.key}}><label class="form-check-label" for="flexSwitchCheckDefault">{{filter.key}}</label></div>
-                
-              </div>
+              <!-- <div id="#tooltip" data-toggle="tooltip" title={{filter.key}}><label class="form-check-label" for="flexSwitchCheckDefault">{{filter.key}}</label></div> -->
+              <span class="truncate" title={{filter.key}}> 
+                {{filter.key}}
+              </span>
+            </div>
           </div>
         </div>
         <a

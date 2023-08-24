@@ -18,8 +18,35 @@
   margin-left: 1em;
   /* overflow: hidden; */
 }
-.checkboxFilters{
+
+.tooltip {
+  position: relative;
+}
+.tooltip-bottom:hover::after {
+  content: attr(data-tooltip);
+  padding: 4px 8px;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  white-space: nowrap;
+  z-index: 1;
+  background-color: #000;
+  color: #fff;
+}
+.truncate {
+  /* max-width: 100px; */
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.form-check.form-switch {
   width: auto;
+}
+
+.checkboxFilters{
+  /* width: initial; */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

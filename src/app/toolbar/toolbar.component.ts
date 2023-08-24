@@ -50,11 +50,17 @@ export class ToolbarComponent {
     this.levels[checkboxFilter] = checked
     
     gantt.attachEvent("onBeforeTaskDisplay", (id, task) => {
+      
       if (!task.id.startsWith("vm")){
-        return this.levels[id]
+        if (id in this.levels){
+          return this.levels[id]
+        }
+        return true
       }
       return false
     })
+    gantt.refreshData()
+
   }
   
   public collapseAll = (): void => {
