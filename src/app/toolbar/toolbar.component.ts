@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { gantt } from 'opt/gantt_pro/codebase/dhtmlxgantt';
 
@@ -23,6 +23,8 @@ export class ToolbarComponent {
   filtersContent: filterContentType
   levels: {[id: string]: boolean}
   dateForm: FormGroup
+  darkMode: boolean;
+  themeForm: FormGroup
 
   constructor(fb: FormBuilder){
     this.servers = []
@@ -31,11 +33,14 @@ export class ToolbarComponent {
     this.filtersContent = {}
     this.levels = {}
     this.dateForm = fb.group({
-      dateZoom: ['', Validators.required]
+      dateZoom: ['Week', Validators.required]
+    })
+    this.darkMode = false;
+    this.themeForm = fb.group({
+      theme: ['terrace', Validators.required]
     })
     
   }
-
   ngOnInit(){
     this.getFiltersContent();
   }
@@ -53,29 +58,27 @@ export class ToolbarComponent {
     gantt.ext.zoom.setLevel(this.dateForm.value.dateZoom)
   }
 
-  public darkMode = () : void =>{
-    console.log(gantt.skins)
-    const link = document.createElement("link")
-
+  public toggleDarkMode = () : void =>{
+    let link = document.createElement("link")
+    console.log(link)
     link.onload = () => {
       gantt.resetSkin();
       gantt.render();
     }
-    const head1  = document.querySelector("#skin")
-    console.log(head1)
-    // link.rel = "stylesheet"
+
+ 
+    const skinElement  = document.querySelector("#skin")
+    
     link.type="text/css"
     link.id = "skin"
-    link.href="../opt/gantt_pro/codebase/skins/dhtmlxgantt_material.css"
     link.rel="stylesheet"
-    link.crossOrigin="anonymous"
-    // console.log(link)
-    // <link id="skin" type="text/css" href="../opt/gantt_pro/codebase/skins/dhtmlxgantt_contrast_black.css" crossorigin="anonymous">
-    // <link id="skin" type="text/css" href="../opt/gantt_pro/codebas…htmlxgantt_material.css" rel="stylesheet" crossorigin="anonymous">
-    document.head.replaceChild(link, document.querySelector("#skin")!)
-    const head2 = document.querySelector("#skin")
+    link.href="./assets/dhtmlxgantt"
+    // if (!this.darkMode) link.href+="_broadway"
+    link.href+= "_" + this.themeForm.value.theme
+    link.href+=".css"
+    document.head.replaceChild(link, skinElement!)
+    this.darkMode = !this.darkMode
     gantt.render()
-    console.log(head2)
   }
   
   public switchUpdated = (checkbox: any) => {

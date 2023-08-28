@@ -3,13 +3,6 @@
   <button
     type="button"
     class="btn btn-secondary settings"
-    (click)="darkMode()"
-    >
-    <i class="bi bi-gear"></i> Dark Mode
-  </button>
-  <button
-    type="button"
-    class="btn btn-secondary settings"
     data-bs-toggle="offcanvas"
     data-bs-target="#offcanvasRight"
     aria-controls="offcanvasRight"
@@ -34,13 +27,43 @@
         aria-label="Close"
       ></button>
     </div>
+    <form [formGroup]="themeForm" (change)="toggleDarkMode()" class="themeForm">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="theme1" value="broadway" formControlName="theme">
+        <label class="form-check-label" for="inlineRadio1">Broadway</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="theme2" value="contrast_black" formControlName="theme">
+        <label class="form-check-label" for="inlineRadio2">Contrast Black</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="theme3" value="contrast_white" formControlName="theme">
+        <label class="form-check-label" for="inlineRadio3">Contrast White</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="theme4" value="material" formControlName="theme">
+        <label class="form-check-label" for="inlineRadio4">Material</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="theme5" value="meadow" formControlName="theme">
+        <label class="form-check-label" for="inlineRadio5">Meadow</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="theme6" value="skyblue" formControlName="theme">
+        <label class="form-check-label" for="inlineRadio6">Skyblue</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="theme7" value="terrace" formControlName="theme" checked>
+        <label class="form-check-label" for="inlineRadio7">Terrace</label>
+      </div>
+    </form>
     <form [formGroup]="dateForm" (change)="dateUpdate()" class="dateForm">
       <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" id="dateRadio1" value="Day" formControlName="dateZoom">
         <label class="form-check-label" for="inlineRadio1">Day</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="dateRadio2" value="Week" formControlName="dateZoom">
+        <input class="form-check-input" type="radio" id="dateRadio2" value="Week" formControlName="dateZoom" checked>
         <label class="form-check-label" for="inlineRadio2">Week</label>
       </div>
       <div class="form-check form-check-inline">
@@ -63,7 +86,6 @@
           <div class="checkboxFilters" *ngFor="let filter of filtersContent | keyvalue">
             <div class="form-check form-switch" >
               <input class="form-check-input" checked name={{filter.key}} type="checkbox" (change)="switchUpdated($event)">
-              <!-- <div id="#tooltip" data-toggle="tooltip" title={{filter.key}}><label class="form-check-label" for="flexSwitchCheckDefault">{{filter.key}}</label></div> -->
               <span class="truncate" title={{filter.key}}> 
                 {{filter.key}}
               </span>

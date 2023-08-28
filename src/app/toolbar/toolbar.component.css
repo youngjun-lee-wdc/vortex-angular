@@ -29,7 +29,7 @@
   /* overflow: hidden; */
 }
 
-.form-check.form-check-inline{
+.form-check.form-check-inline {
   display: flex;
   flex-direction: row;
 }
