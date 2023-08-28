@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { gantt } from 'opt/gantt_pro/codebase/dhtmlxgantt';
 
 interface filterContentType {
@@ -21,13 +22,18 @@ export class ToolbarComponent {
   filtersInputs: HTMLCollectionOf<HTMLInputElement> | undefined
   filtersContent: filterContentType
   levels: {[id: string]: boolean}
+  dateForm: FormGroup
 
-  constructor(){
+  constructor(fb: FormBuilder){
     this.servers = []
     this.filtersWrapper = document.getElementById("filtersWrapper")
     this.filtersInputs = this.filtersWrapper?.getElementsByTagName("input")
     this.filtersContent = {}
     this.levels = {}
+    this.dateForm = fb.group({
+      dateZoom: ['', Validators.required]
+    })
+    
   }
 
   ngOnInit(){
@@ -39,7 +45,37 @@ export class ToolbarComponent {
       this.filtersContent[task.id] = {id: task.id, parent: task.parent}
       this.levels[id] = true
     })
+  }
 
+  public dateUpdate(){
+    console.log(this.dateForm.value.dateZoom)
+    
+    gantt.ext.zoom.setLevel(this.dateForm.value.dateZoom)
+  }
+
+  public darkMode = () : void =>{
+    console.log(gantt.skins)
+    const link = document.createElement("link")
+
+    link.onload = () => {
+      gantt.resetSkin();
+      gantt.render();
+    }
+    const head1  = document.querySelector("#skin")
+    console.log(head1)
+    // link.rel = "stylesheet"
+    link.type="text/css"
+    link.id = "skin"
+    link.href="../opt/gantt_pro/codebase/skins/dhtmlxgantt_material.css"
+    link.rel="stylesheet"
+    link.crossOrigin="anonymous"
+    // console.log(link)
+    // <link id="skin" type="text/css" href="../opt/gantt_pro/codebase/skins/dhtmlxgantt_contrast_black.css" crossorigin="anonymous">
+    // <link id="skin" type="text/css" href="../opt/gantt_pro/codebas…htmlxgantt_material.css" rel="stylesheet" crossorigin="anonymous">
+    document.head.replaceChild(link, document.querySelector("#skin")!)
+    const head2 = document.querySelector("#skin")
+    gantt.render()
+    console.log(head2)
   }
   
   public switchUpdated = (checkbox: any) => {

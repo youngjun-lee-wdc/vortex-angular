@@ -10,6 +10,16 @@
   overflow-y: scroll;
 }
 
+.dateForm{
+  display:flex;
+  flex-direction: row;
+  margin-left: 1em;
+}
+
+.form-check-label{
+  margin-left:0.5em;
+}
+
 .filtersWrapper{
   display: grid;
   grid-template-columns: auto auto auto;
@@ -17,6 +27,11 @@
   width: 85%;
   margin-left: 1em;
   /* overflow: hidden; */
+}
+
+.form-check.form-check-inline{
+  display: flex;
+  flex-direction: row;
 }
 
 .tooltip {

@@ -3,12 +3,20 @@
   <button
     type="button"
     class="btn btn-secondary settings"
+    (click)="darkMode()"
+    >
+    <i class="bi bi-gear"></i> Dark Mode
+  </button>
+  <button
+    type="button"
+    class="btn btn-secondary settings"
     data-bs-toggle="offcanvas"
     data-bs-target="#offcanvasRight"
     aria-controls="offcanvasRight"
   >
     <i class="bi bi-gear"></i> Settings
   </button>
+  
   <div
     class="offcanvas offcanvas-end"
     tabindex="-1"
@@ -26,10 +34,25 @@
         aria-label="Close"
       ></button>
     </div>
-
-    <ul class="list-group list-group-flush">
-      <!-- <span>Display tasks with priority:</span> -->
-
+    <form [formGroup]="dateForm" (change)="dateUpdate()" class="dateForm">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="dateRadio1" value="Day" formControlName="dateZoom">
+        <label class="form-check-label" for="inlineRadio1">Day</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="dateRadio2" value="Week" formControlName="dateZoom">
+        <label class="form-check-label" for="inlineRadio2">Week</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="dateRadio3" value="Month" formControlName="dateZoom">
+        <label class="form-check-label" for="inlineRadio3">Month</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="dateRadio4" value="Year" formControlName="dateZoom">
+        <label class="form-check-label" for="inlineRadio4">Year</label>
+      </div>
+    </form>
+    <ul class="list-group list-group-flush">        
         <input
           class="form-control"
           placeholder="Filter"
