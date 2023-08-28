@@ -74,12 +74,13 @@ export class LightboxComponent{
       this.firmwareVersionSelected = undefined
       this.newTestPlan = undefined
       this.dateSelected = {startDate: new Date(), endDate: new Date()}
+      gantt.showDate(new Date(Date.now() - ( 1* 3600 * 1000 * 24))); 
     }
     
     public cancel() {
       let task = gantt.getTask(this.taskId);
       gantt.deleteTask(task.id);
-      gantt.hideLightbox();
+      this.hideLightbox();
     }
 
     public deleteTask() {

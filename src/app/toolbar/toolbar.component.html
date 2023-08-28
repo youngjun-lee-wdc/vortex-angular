@@ -29,33 +29,34 @@
     </div>
     <form [formGroup]="themeForm" (change)="toggleDarkMode()" class="themeForm">
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="theme1" value="broadway" formControlName="theme">
-        <label class="form-check-label" for="inlineRadio1">Broadway</label>
+        <input class="form-check-input" type="radio" id="theme1" value="terrace" formControlName="theme" checked>
+        <label class="form-check-label" for="inlineRadio1">Terrace</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="theme2" value="contrast_black" formControlName="theme">
-        <label class="form-check-label" for="inlineRadio2">Contrast Black</label>
+        <input class="form-check-input" type="radio" id="theme2" value="broadway" formControlName="theme">
+        <label class="form-check-label" for="inlineRadio2">Broadway</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="theme3" value="contrast_white" formControlName="theme">
-        <label class="form-check-label" for="inlineRadio3">Contrast White</label>
+        <input class="form-check-input" type="radio" id="theme3" value="contrast_black" formControlName="theme">
+        <label class="form-check-label" for="inlineRadio3">Contrast Black</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="theme4" value="material" formControlName="theme">
-        <label class="form-check-label" for="inlineRadio4">Material</label>
+        <input class="form-check-input" type="radio" id="theme4" value="contrast_white" formControlName="theme">
+        <label class="form-check-label" for="inlineRadio4">Contrast White</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="theme5" value="meadow" formControlName="theme">
-        <label class="form-check-label" for="inlineRadio5">Meadow</label>
+        <input class="form-check-input" type="radio" id="theme5" value="material" formControlName="theme">
+        <label class="form-check-label" for="inlineRadio5">Material</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="theme6" value="skyblue" formControlName="theme">
-        <label class="form-check-label" for="inlineRadio6">Skyblue</label>
+        <input class="form-check-input" type="radio" id="theme6" value="meadow" formControlName="theme">
+        <label class="form-check-label" for="inlineRadio6">Meadow</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="theme7" value="terrace" formControlName="theme" checked>
-        <label class="form-check-label" for="inlineRadio7">Terrace</label>
+        <input class="form-check-input" type="radio" id="theme7" value="skyblue" formControlName="theme">
+        <label class="form-check-label" for="inlineRadio7">Skyblue</label>
       </div>
+
     </form>
     <form [formGroup]="dateForm" (change)="dateUpdate()" class="dateForm">
       <div class="form-check form-check-inline">

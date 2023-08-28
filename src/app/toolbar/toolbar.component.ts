@@ -56,6 +56,7 @@ export class ToolbarComponent {
     console.log(this.dateForm.value.dateZoom)
     
     gantt.ext.zoom.setLevel(this.dateForm.value.dateZoom)
+    gantt.showDate(new Date(Date.now() - ( 1* 3600 * 1000 * 24))); 
   }
 
   public toggleDarkMode = () : void =>{
@@ -73,7 +74,6 @@ export class ToolbarComponent {
     link.id = "skin"
     link.rel="stylesheet"
     link.href="./assets/dhtmlxgantt"
-    // if (!this.darkMode) link.href+="_broadway"
     link.href+= "_" + this.themeForm.value.theme
     link.href+=".css"
     document.head.replaceChild(link, skinElement!)
