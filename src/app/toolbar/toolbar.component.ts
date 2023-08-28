@@ -47,22 +47,19 @@ export class ToolbarComponent {
     this.getFiltersContent();
   }
   
-  public getFiltersContent(){
+  public getFiltersContent = ():void => {
     gantt.attachEvent("onAfterTaskUpdate",  (id, task) => {
       this.filtersContent[task.id] = {id: task.id, parent: task.parent}
       this.levels[id] = true
     })
   }
 
-  public dateUpdate(){
-    console.log(this.dateForm.value.dateZoom)
-    
+  public dateUpdate = (): void => {  
     gantt.ext.zoom.setLevel(this.dateForm.value.dateZoom)
     gantt.showDate(new Date(Date.now() - ( 1* 3600 * 1000 * 24))); 
   }
 
   public toggleDarkMode = () : void =>{
-
     let skinElement = document.querySelector("#themeSkin") as HTMLLinkElement
     console.log(skinElement)
     skinElement.href= `./assets/dhtmlxgantt_${this.themeForm.value.theme}.css`
@@ -78,7 +75,7 @@ export class ToolbarComponent {
     const checkboxFilter = checkbox.target.name
     this.levels[checkboxFilter] = checked
     
-    gantt.attachEvent("onBeforeTaskDisplay", (id, task) => {
+    gantt.attachEvent("onBeforeTaskDisplay", (id, task): boolean => {
       
       if (!task.id.startsWith("vm")){
         if (id in this.levels){
@@ -150,7 +147,7 @@ export class ToolbarComponent {
     gantt.exportToJSON();
   };
   
-  public filterInput = () => {
+  public filterInput = (): void => {
     let filterData: string;
     let searchBox = document.getElementById('filter');
 

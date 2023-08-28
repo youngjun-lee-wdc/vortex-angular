@@ -26,15 +26,16 @@
         aria-label="Close"
       ></button>
     </div>
-    <input
-    class="form-control"
-    placeholder="Filter"
-    (input)="filterInput()"
-    id="filter"
-  />
+
   <div class="offcanvas-header">
     <h4 id="offcanvasRightLabel">Filter CPUs: </h4>
   </div>
+  <input
+  class="form-control"
+  placeholder="Filter"
+  (input)="filterInput()"
+  id="filter"
+  />
   <div class="filtersWrapper" id="filtersWrapper">
     <div class="checkboxFilters" *ngFor="let filter of filtersContent | keyvalue">
       <div class="form-check form-switch" >
@@ -45,6 +46,7 @@
       </div>
     </div>
   </div>
+
   <div class="offcanvas-header">
     <h4 id="offcanvasRightLabel">Zoom Settings: </h4>
   </div>
@@ -66,35 +68,10 @@
       <label class="form-check-label" for="inlineRadio4">Year</label>
     </div>
   </form>
-  <div class="offcanvas-header">
-    <h4 id="offcanvasRightLabel">Theme: </h4>
-  </div>
-  <form [formGroup]="themeForm" (change)="toggleDarkMode()" class="themeForm">
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" id="theme1" value="terrace" formControlName="theme" checked>
-      <label class="form-check-label" for="inlineRadio1">Terrace</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" id="theme2" value="broadway" formControlName="theme">
-      <label class="form-check-label" for="inlineRadio2">Broadway</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" id="theme3" value="contrast_black" formControlName="theme">
-      <label class="form-check-label" for="inlineRadio3">Contrast Black</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" id="theme4" value="contrast_white" formControlName="theme">
-      <label class="form-check-label" for="inlineRadio4">Contrast White</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" id="theme5" value="material" formControlName="theme">
-      <label class="form-check-label" for="inlineRadio5">Material</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" id="theme6" value="meadow" formControlName="theme">
-      <label class="form-check-label" for="inlineRadio6">Meadow</label>
-    </div>
-  </form>   
+
+    <div class="offcanvas-header">
+      <h4 id="offcanvasRightLabel">Extras: </h4>
+    </div>   
     <ul class="list-group">   
         <a
         href="#"
@@ -193,6 +170,34 @@
         </a>
 
     </ul>
-
+    <div class="offcanvas-header">
+      <h4 id="offcanvasRightLabel">Theme: </h4>
+    </div>
+    <form [formGroup]="themeForm" (change)="toggleDarkMode()" class="themeForm">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="theme1" value="terrace" formControlName="theme" checked>
+        <label class="form-check-label" for="inlineRadio1">Terrace</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="theme2" value="broadway" formControlName="theme">
+        <label class="form-check-label" for="inlineRadio2">Broadway</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="theme3" value="contrast_black" formControlName="theme">
+        <label class="form-check-label" for="inlineRadio3">Contrast Black</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="theme4" value="contrast_white" formControlName="theme">
+        <label class="form-check-label" for="inlineRadio4">Contrast White</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="theme5" value="material" formControlName="theme">
+        <label class="form-check-label" for="inlineRadio5">Material</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="theme6" value="meadow" formControlName="theme">
+        <label class="form-check-label" for="inlineRadio6">Meadow</label>
+      </div>
+    </form>
   </div>
 </div>
