@@ -124,9 +124,6 @@ export class GanttComponent implements OnInit, OnDestroy {
             return ""
           };
 
-          
-
-          
     }
     
     callLightbox(taskId: any, isNewTask: boolean = true){
@@ -145,6 +142,12 @@ export class GanttComponent implements OnInit, OnDestroy {
             export_api: true
         })
 
+        // check for items in localStorage and render them 
+        const localStorageTheme = localStorage.getItem("theme")
+        if (localStorageTheme){
+          let skinElement = document.querySelector("#themeSkin")! as HTMLLinkElement
+          skinElement.href = `./assets/dhtmlxgantt_${localStorageTheme}.css`
+        }
 
         gantt.init(this.ganttContainer.nativeElement);
         gantt.showDate(new Date())

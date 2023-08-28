@@ -43,6 +43,9 @@ export class ToolbarComponent {
   }
   ngOnInit(){
     this.getFiltersContent();
+    // this.toggleDarkMode()
+    // const localStorageTheme = localStorage.getItem("theme")
+    // console.log(localStorageTheme)
   }
   
   public getFiltersContent(){
@@ -60,24 +63,12 @@ export class ToolbarComponent {
   }
 
   public toggleDarkMode = () : void =>{
-    let link = document.createElement("link")
-    console.log(link)
-    link.onload = () => {
-      gantt.resetSkin();
-      gantt.render();
-    }
 
- 
-    const skinElement  = document.querySelector("#skin")
-    
-    link.type="text/css"
-    link.id = "skin"
-    link.rel="stylesheet"
-    link.href="./assets/dhtmlxgantt"
-    link.href+= "_" + this.themeForm.value.theme
-    link.href+=".css"
-    document.head.replaceChild(link, skinElement!)
+    let skinElement = document.querySelector("#themeSkin") as HTMLLinkElement
+    console.log(skinElement)
+    skinElement.href= `./assets/dhtmlxgantt_${this.themeForm.value.theme}.css`
     this.darkMode = !this.darkMode
+    localStorage.setItem("theme", this.themeForm.value.theme)
     gantt.render()
   }
   

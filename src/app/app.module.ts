@@ -16,6 +16,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { TooltipDirective } from './tooltip.directive';
 import { ZoomDirective } from './zoom.directive';
 import { MinimapDirective } from './minimap.directive';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MinimapDirective } from './minimap.directive';
     TooltipDirective,
     ZoomDirective,
     MinimapDirective,
+    LoginComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
