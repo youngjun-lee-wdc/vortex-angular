@@ -36,16 +36,15 @@ export class ToolbarComponent {
       dateZoom: ['Week', Validators.required]
     })
     this.darkMode = false;
+
+    const localStorageTheme = localStorage.getItem('theme')
     this.themeForm = fb.group({
-      theme: ['terrace', Validators.required]
+      theme: [localStorageTheme ? localStorageTheme : 'terrace', Validators.required]
     })
-    
   }
+  
   ngOnInit(){
     this.getFiltersContent();
-    // this.toggleDarkMode()
-    // const localStorageTheme = localStorage.getItem("theme")
-    // console.log(localStorageTheme)
   }
   
   public getFiltersContent(){
