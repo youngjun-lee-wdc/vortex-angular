@@ -122,6 +122,7 @@
 
 .list-group.cpu{
   background-color: #fff;
+  /* display: inline-table */
 }
 
 .checkBox{
