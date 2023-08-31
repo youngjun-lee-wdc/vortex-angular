@@ -52,11 +52,15 @@ export class LightboxComponent{
         dateSelected: ['', Validators.required]
       })
     }
-
+    
     public showLightbox = (taskId: string | number, isNewTask: boolean) => {
       this.isNewTask = isNewTask
+      const lightboxModal = document.getElementById("lightboxModal")
+      lightboxModal?.addEventListener('hidden.bs.modal', ()=>{
+        gantt.showDate(new Date(Date.now() - ( 1* 3600 * 1000 * 24))); 
+      })
       this.formModal = new window.bootstrap.Modal(
-        document.getElementById("lightboxModal")
+        lightboxModal
       )
       this.taskId = taskId
       this.newTask = gantt.getTask(taskId)

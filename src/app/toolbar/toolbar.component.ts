@@ -69,6 +69,7 @@ export class ToolbarComponent {
   }
   
   public switchUpdated = (checkbox: any) => {
+    console.log(checkbox)
     // filter tasks by CPUs
     gantt.refreshData()
     const checked = checkbox.target.checked;
@@ -76,7 +77,6 @@ export class ToolbarComponent {
     this.levels[checkboxFilter] = checked
     
     gantt.attachEvent("onBeforeTaskDisplay", (id, task): boolean => {
-      
       if (!task.id.startsWith("vm")){
         if (id in this.levels){
           return this.levels[id]
@@ -85,8 +85,8 @@ export class ToolbarComponent {
       }
       return false
     })
-    gantt.refreshData()
 
+    gantt.refreshData()
   }
   
   public collapseAll = (): void => {

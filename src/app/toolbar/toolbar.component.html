@@ -36,36 +36,36 @@
   (input)="filterInput()"
   id="filter"
   />
-  <div class="filtersWrapper" id="filtersWrapper">
-    <div class="checkboxFilters" *ngFor="let filter of filtersContent | keyvalue">
-      <div class="form-check form-switch" >
-        <input class="form-check-input" checked name={{filter.key}} type="checkbox" (change)="switchUpdated($event)">
-        <span class="truncate" title={{filter.key}}> 
-          {{filter.key}}
-        </span>
-      </div>
-    </div>
-  </div>
+
+  <ul class="list-group cpu">   
+    <!-- <div class="checkBoxContainer"> -->
+      <div class="checkBox" role="group" *ngFor="let filter of filtersContent | keyvalue">
+        <label>
+           <input type="checkbox" value={{filter.key}} name={{filter.key}} (change)="switchUpdated($event)" checked>
+           <span class="not-selectable">
+            <!-- <i class="bi bi-cpu"></i> -->
+            {{filter.key}}</span>
+        </label>
+     </div>
+    <!-- </div> -->
+  </ul>
 
   <div class="offcanvas-header">
     <h4 id="offcanvasRightLabel">Zoom Settings: </h4>
   </div>
   <form [formGroup]="dateForm" (change)="dateUpdate()" class="dateForm">
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" id="dateRadio1" value="Day" formControlName="dateZoom">
-      <label class="form-check-label" for="inlineRadio1">Day</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" id="dateRadio2" value="Week" formControlName="dateZoom" checked>
-      <label class="form-check-label" for="inlineRadio2">Week</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" id="dateRadio3" value="Month" formControlName="dateZoom">
-      <label class="form-check-label" for="inlineRadio3">Month</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" id="dateRadio4" value="Year" formControlName="dateZoom">
-      <label class="form-check-label" for="inlineRadio4">Year</label>
+    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+      <input type="radio" class="btn-check" value="Day" formControlName="dateZoom" id="btnradio1" autocomplete="off">
+      <label class="btn btn-outline-secondary" for="btnradio1">Day</label>
+    
+      <input type="radio" class="btn-check" value="Week" formControlName="dateZoom" id="btnradio2" autocomplete="off" checked>
+      <label class="btn btn-outline-secondary" for="btnradio2">Week</label>
+    
+      <input type="radio" class="btn-check" value="Month" formControlName="dateZoom" id="btnradio3" autocomplete="off">
+      <label class="btn btn-outline-secondary" for="btnradio3">Month</label>
+
+      <input type="radio" class="btn-check" value="Year" formControlName="dateZoom" id="btnradio4" autocomplete="off">
+      <label class="btn btn-outline-secondary" for="btnradio4">Year</label>
     </div>
   </form>
 
@@ -173,31 +173,73 @@
     <div class="offcanvas-header">
       <h4 id="offcanvasRightLabel">Theme: </h4>
     </div>
-    <form [formGroup]="themeForm" (change)="toggleDarkMode()" class="themeForm">
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="theme1" value="terrace" formControlName="theme" checked>
-        <label class="form-check-label" for="inlineRadio1">Terrace</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="theme2" value="broadway" formControlName="theme">
-        <label class="form-check-label" for="inlineRadio2">Broadway</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="theme3" value="contrast_black" formControlName="theme">
-        <label class="form-check-label" for="inlineRadio3">Contrast Black</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="theme4" value="contrast_white" formControlName="theme">
-        <label class="form-check-label" for="inlineRadio4">Contrast White</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="theme5" value="material" formControlName="theme">
-        <label class="form-check-label" for="inlineRadio5">Material</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="theme6" value="meadow" formControlName="theme">
-        <label class="form-check-label" for="inlineRadio6">Meadow</label>
-      </div>
-    </form>
+
+    <form [formGroup]="themeForm" (change)="toggleDarkMode()" class="list-group themeForm">
+      <label class="list-group-item list-group-item-action">
+        <input type="radio" class="btn-check" value="terrace" formControlName="theme" autocomplete="off">
+        Terrace
+      </label>
+    
+      <label class="list-group-item list-group-item-action">
+        <input type="radio" class="btn-check" value="broadway" formControlName="theme" autocomplete="off" checked>
+        Broadway
+      </label>
+    
+      <label class="list-group-item list-group-item-action">
+        <input type="radio" class="btn-check" value="contrast_black" formControlName="theme" autocomplete="off">
+        Contrast Black
+      </label>
+    
+      <label class="list-group-item list-group-item-action">
+        <input type="radio" class="btn-check" value="contrast_white" formControlName="theme" autocomplete="off">
+        Contrast White
+      </label>
+    
+      <label class="list-group-item list-group-item-action theme">
+        <input type="radio" class="btn-check" value="material" formControlName="theme" autocomplete="off">
+        Material
+      </label>
+    
+      <label class="list-group-item list-group-item-action theme">
+        <input type="radio" class="btn-check" value="meadow" formControlName="theme" autocomplete="off">
+        Meadow
+      </label>
+  </form>
+<!-- 
+  <form [formGroup]="themeForm" (change)="toggleDarkMode()" class="list-group themeForm">
+    <div class="checkBoxContainer">
+      <div class="checkBox">
+        <label class="list-group-item list-group-item-action">
+          <input type="radio" class="btn-check" value="terrace" formControlName="theme" autocomplete="off">
+          Terrace
+        </label>
+      
+        <label class="list-group-item list-group-item-action">
+          <input type="radio" class="btn-check" value="broadway" formControlName="theme" autocomplete="off" checked>
+          Broadway
+        </label>
+      
+        <label class="list-group-item list-group-item-action">
+          <input type="radio" class="btn-check" value="contrast_black" formControlName="theme" autocomplete="off">
+          Contrast Black
+        </label>
+      
+        <label class="list-group-item list-group-item-action">
+          <input type="radio" class="btn-check" value="contrast_white" formControlName="theme" autocomplete="off">
+          Contrast White
+        </label>
+      
+        <label class="list-group-item list-group-item-action theme">
+          <input type="radio" class="btn-check" value="material" formControlName="theme" autocomplete="off">
+          Material
+        </label>
+      
+        <label class="list-group-item list-group-item-action theme">
+          <input type="radio" class="btn-check" value="meadow" formControlName="theme" autocomplete="off">
+          Meadow
+        </label>
+     </div>
+    </div>
+  </form> -->
   </div>
 </div>

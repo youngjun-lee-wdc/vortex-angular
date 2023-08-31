@@ -2,10 +2,11 @@
 
 #filter {
   width: 85%;
-  margin-left: 1em;
+  margin-left: 1.5em;
   margin-bottom: 0.5em;
   margin-top: 0.5em;
 }
+
 
 .offcanvas {
   overflow-y: scroll;
@@ -25,13 +26,8 @@
   justify-content: flex-start;
 }
 
-.themeForm {
-  margin-top: 0.5em;
-  margin-left: 1.5em;
-  display: grid;
-  grid-template-columns: auto auto auto;
-  justify-items: stretch;
-  /* gap: 5px; */
+.list-group.themeForm{
+  margin-bottom: 1em;
 }
 
 .form-check-label {
@@ -42,36 +38,66 @@
   display: grid;
   align-items: center;
   justify-content: center;
-  grid-template-columns: auto auto auto;
+  align-content: center;
+  justify-items: center;
+  /* grid-template-columns: auto auto auto; */
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 5px;
   width: 85%;
   margin-left: 1.75em;
   margin-top: 0.5em;
 }
 
+.not-selectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  /* border-radius: 10px 0 0 0; */
+}
+
 .form-check.form-check-inline {
   display: flex;
-  flex-direction: row;
+  flex-direction: row;  
 }
 
-.truncate {
-  /* max-width: 100px; */
+.ellipsis {
+  display: block;
+  white-space: nowrap;
   overflow: hidden;
-  display: inline-block;
   text-overflow: ellipsis;
+  transition: all .1s linear;
   white-space: nowrap;
 }
 
-.form-check.form-switch {
+.ellipsis:focus, .ellipsis:hover {
+  color: transparent;
+}
+
+.ellipsis:focus:after,.ellipsis:hover:after{
+  content: attr(data-text);
+  overflow: visible;
+  text-overflow: inherit;
+  background: #fff;
+  position: absolute;
+  left: auto;
+  top: auto;
   width: auto;
+  max-width: 20rem;
+  border: 1px solid #eaebec;
+  padding: 0 .5rem;
+  font-size: 15px;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.28);
+  white-space: normal;
+  word-wrap: break-word;
+  display:block;
+  color:black;
+  margin-top:-1.25rem;
 }
 
-.checkboxFilters {
-  /* width: initial; */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 
 .gantt-header {
   border-top: 1px solid #cecece;
@@ -94,16 +120,66 @@
   padding: 1px;
 }
 
+.list-group.cpu{
+  background-color: #fff;
+}
+
+.checkBox{
+  background-color: white;
+  border: 3px solid #dee2e6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* transition: all .1s linear; */
+  white-space: nowrap;
+
+  height: 45px;
+}
+
+.checkBox:hover{
+  background-color: #f8f9fa;
+  transition: background-color 0.3s ease-in-out; /* Add transition for smooth fading effect */
+}
+
+.checkBox label {
+  width: 100%;
+  height: 100%;
+}
+
+.checkBox label span {
+  display: flex;
+  align-items: center;  
+  justify-content: center;
+  color: black;
+  height: 100%;
+  /* line-height: 35px; */
+
+}
+
+.checkBox label input {
+  position: absolute;
+  display: none;
+}
+
+.checkBox input:checked + span {
+  /* background-color: #939ea8; */
+  background-color: #6c757d;
+  
+  color: #fff;
+}
+
+
 .list-group-item {
   line-height: 35px;
   border: 1px solid #dee2e6;
+  transition: background-color 0.3s ease-in-out; /* Add transition for smooth fading effect */
 }
 
 
-.list-group-item:nth-child(1){
-  border-radius: 10px 0 0 0
+
+.list-group-item:nth-child(1), .checkBox:nth-child(1), .checkBox:nth-child(1) input:checked + span{
+  border-radius: 10px 0 0 0;
 }
-.list-group-item:nth-child(2){
+.list-group-item:nth-child(2), .checkBox:nth-child(2), .checkBox:nth-child(2) input:checked + span{
   border-radius: 0 10px 0 0
 }
 .list-group-item:nth-child(11){
@@ -111,6 +187,29 @@
 }
 .list-group-item:nth-child(12){
   border-radius: 0 0 10px 0
+}
+.list-group-item.theme:nth-child(5), .checkBox:nth-last-child(2), .checkBox:nth-last-child(2) input:checked + span{
+  border-radius: 0 0 0 10px
+}
+.list-group-item.theme:nth-child(6), .checkBox:last-child, .checkBox:last-child input:checked + span{
+  border-radius: 0 0 10px 0
+}
+
+
+.list-group-item input[type="radio"]:checked + .list-group-item-action {
+  background-color: rgba(0, 0, 0, 0.1); /* Adjust the rgba value for your desired faded color */
+  transition: background-color 0.3s ease-in-out;
+}
+
+.list-group-themes{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  margin-top: 0.5em;
+  margin-left: 1.25em;
+  margin-right: 1em;
+  /* background-color: #dee2e6; */
+  border-radius: 10px;
+  padding: 1px;
 }
 
 .headerContainer {
@@ -128,14 +227,14 @@
   position: absolute;
   transform: translateX(-50%);
   padding-top: 1em;
-  /* margin-bottom: 1em; */
+  margin-bottom: 1em;
 }
 
 .btn.btn-secondary.settings {
   flex: 0 1 auto;
   margin-left: auto;
   margin-right: 1em;
-  margin-bottom: 0.2em;
+  margin-bottom: 1em;
 }
 
 .bi {
