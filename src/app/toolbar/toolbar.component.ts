@@ -124,11 +124,11 @@ export class ToolbarComponent {
     }
   }
 
-  public zoomOut = (): void => {
+  public zoomIn = (): void => {
     gantt.ext.zoom.zoomOut();
   };
 
-  public zoomIn = (): void => {
+  public zoomOut = (): void => {
     gantt.ext.zoom.zoomIn();
   };
 
