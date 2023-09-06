@@ -69,7 +69,6 @@ export class ToolbarComponent {
   }
   
   public switchUpdated = (checkbox: any) => {
-    console.log(checkbox)
     // filter tasks by CPUs
     gantt.refreshData()
     const checked = checkbox.target.checked;
@@ -87,6 +86,12 @@ export class ToolbarComponent {
     })
 
     gantt.refreshData()
+  }
+  public calculateGridColumns(): string {
+    const numberOfItems = Object.keys(this.filtersContent).length;
+    const idealColumnCount = Math.ceil(Math.sqrt(numberOfItems)); // Adjust as needed
+    const columnSize = 'auto'; 
+    return `repeat(${idealColumnCount}, ${columnSize})`;
   }
   
   public collapseAll = (): void => {

@@ -1,7 +1,23 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user">
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLink="/">Home</a>
+        <a class="nav-item nav-link" routerLink="/admin" *ngIf="isAdmin">Admin</a>
+        <a class="nav-item nav-link" (click)="logout()">Logout</a>
+    </div>
+    <button
+        type="button"
+        class="btn btn-secondary settings"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasRight"
+        aria-controls="offcanvasRight"
+    >
+        <i class="bi bi-gear"></i> Settings
+    </button>
+    <h1 class="vortexTitle">Vortex Portal</h1>
+</nav>
 <app-toolbar></app-toolbar>
-<gantt>
-    <div appMarker></div>
-    <div appTooltip></div>
-    <div appHotkey></div>
-    <div appZoom></div>
-</gantt>
+
+<!-- main app container -->
+<div class="container">
+    <router-outlet></router-outlet>
+</div>

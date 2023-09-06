@@ -1,6 +1,6 @@
 <div class="headerContainer">
-  <h1 class="vortexTitle">Vortex Portal</h1>
-  <button
+  <!-- <h1 class="vortexTitle">Vortex Portal</h1> -->
+  <!-- <button
     type="button"
     class="btn btn-secondary settings"
     data-bs-toggle="offcanvas"
@@ -8,7 +8,7 @@
     aria-controls="offcanvasRight"
   >
     <i class="bi bi-gear"></i> Settings
-  </button>
+  </button> -->
   
   <div
     class="offcanvas offcanvas-end"
@@ -37,18 +37,31 @@
   id="filter"
   />
 
-  <ul class="list-group cpu">   
+  <!-- <ul class="list-group cpu">    -->
     <!-- <div class="checkBoxContainer"> -->
-      <div class="checkBox" role="group" *ngFor="let filter of filtersContent | keyvalue">
-        <label>
-           <input type="checkbox" value={{filter.key}} name={{filter.key}} (change)="switchUpdated($event)" checked>
-           <span class="not-selectable">
-            <i class="bi bi-cpu"></i>
-            {{filter.key}}</span>
-        </label>
-     </div>
+      <!-- <div class="checkBox" role="group" *ngFor="let filter of filtersContent | keyvalue"> -->
+        <!-- <label> -->
+           <!-- <input type="checkbox" value={{filter.key}} name={{filter.key}} (change)="switchUpdated($event)" checked> -->
+           <!-- <span class="not-selectable"> -->
+            <!-- <i class="bi bi-cpu"></i> -->
+            <!-- {{filter.key}}</span> -->
+        <!-- </label> -->
+     <!-- </div> -->
     <!-- </div> -->
+  <!-- </ul> -->
+
+  <ul class="list-group cpu" [style.grid-template-columns]="calculateGridColumns()">
+    <div class="checkBox" role="group" *ngFor="let filter of filtersContent | keyvalue">
+      <label>
+        <input type="checkbox" value={{filter.key}} name={{filter.key}} (change)="switchUpdated($event)" checked>
+        <span class="not-selectable">
+          <i class="bi bi-cpu"></i>
+          {{filter.key}}
+        </span>
+      </label>
+    </div>
   </ul>
+  
 
   <div class="offcanvas-header">
     <h4 id="offcanvasRightLabel">Zoom Settings: </h4>

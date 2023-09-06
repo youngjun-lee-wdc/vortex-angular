@@ -177,7 +177,7 @@
 
 
 
-.list-group-item:nth-child(1), .checkBox:nth-child(1), .checkBox:nth-child(1) input:checked + span{
+/* .list-group-item:nth-child(1), .checkBox:nth-child(1), .checkBox:nth-child(1) input:checked + span{
   border-radius: 10px 0 0 0;
 }
 .list-group-item:nth-child(2), .checkBox:nth-child(2), .checkBox:nth-child(2) input:checked + span{
@@ -194,7 +194,7 @@
 }
 .list-group-item.theme:nth-child(6), .checkBox:last-child, .checkBox:last-child input:checked + span{
   border-radius: 0 0 10px 0
-}
+} */
 
 
 .list-group-item input[type="radio"]:checked + .list-group-item-action {
@@ -219,7 +219,8 @@
   justify-content: flex-start;
   /* adjustment */
   position: relative;
-  padding-top: 1em;
+  /* padding-top: 1em; */
+  /* height: 50px; */
 }
 
 .vortexTitle {

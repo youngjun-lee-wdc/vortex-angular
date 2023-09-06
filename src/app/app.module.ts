@@ -1,6 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,7 +18,11 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { TooltipDirective } from './tooltip.directive';
 import { ZoomDirective } from './zoom.directive';
 import { MinimapDirective } from './minimap.directive';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './login';
+import { AdminComponent } from './admin';
+import { HomeComponent } from './home';
+import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+
 
 @NgModule({
   declarations: [
@@ -31,6 +36,8 @@ import { LoginComponent } from './login/login.component';
     ZoomDirective,
     MinimapDirective,
     LoginComponent,
+    AdminComponent,
+    HomeComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -40,7 +47,12 @@ import { LoginComponent } from './login/login.component';
     TypeaheadModule.forRoot(),
     NgxDaterangepickerMd.forRoot(),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

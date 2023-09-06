@@ -4,9 +4,9 @@ import { gantt } from 'dhtmlx-gantt';
 @Directive({
   selector: '[appMarker]'
 })
-export class MarkerDirective implements AfterViewInit {
+export class MarkerDirective implements OnInit {
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     let markerId = gantt.addMarker({
       start_date: new Date(),
       css: "today", 

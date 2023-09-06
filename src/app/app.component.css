@@ -1,0 +1,14 @@
+.container{
+    max-width: inherit;
+    padding: 0;
+}
+
+.vortexTitle {
+    flex: 0 1 auto;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    padding-top: 1em;
+    margin-bottom: 1em;
+    color: white;
+  }
