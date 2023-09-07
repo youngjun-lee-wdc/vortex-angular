@@ -1,9 +1,9 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
-
+import { catchError } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { User } from '../_models';
 
@@ -24,15 +24,22 @@ export class AuthenticationService {
         return this.userSubject.value;
     }
 
+    private handleError(error: HttpErrorResponse) {
+        return throwError(() => error);
+    }
+
     login(username: string, password: string) {
-        console.log(`${environment.apiUrl}/users/authenticate`)
         return this.http.post<any>(`${environment.apiUrl}/users/authenticate`, { username, password })
-            .pipe(map(user => {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
-                this.userSubject.next(user);
-                return user;
-            }));
+            .pipe(
+                map(user => {
+                    console.log(user)
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('user', JSON.stringify(user));
+                    this.userSubject.next(user);
+                    return user;
+                }),
+                catchError(this.handleError)
+            )
     }
 
     logout() {
@@ -40,5 +47,17 @@ export class AuthenticationService {
         localStorage.removeItem('user');
         this.userSubject.next(null!);
         this.router.navigate(['/login']);
+    }
+
+    register(username: string, password: string, firstName: string, lastName: string){
+        return this.http.post<any>(`${environment.apiUrl}/users/register`, { firstName, lastName, username, password })
+        .pipe(map(user => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('user', JSON.stringify(user));
+            this.userSubject.next(user);
+            return user;
+            }),
+            catchError(this.handleError)
+        );
     }
 }

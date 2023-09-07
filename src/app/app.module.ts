@@ -22,6 +22,7 @@ import { LoginComponent } from './login';
 import { AdminComponent } from './admin';
 import { HomeComponent } from './home';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
     MinimapDirective,
     LoginComponent,
     AdminComponent,
-    HomeComponent
+    HomeComponent,
+    RegisterComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
