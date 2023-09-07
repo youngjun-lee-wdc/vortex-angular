@@ -138,6 +138,7 @@ export class LightboxComponent{
       }
 
       else{
+          console.log(this.testPlanSelected)
           gantt.updateTask(this.taskId, {
             id: this.taskId,
             text: (this.testSuiteSelected === undefined) ? gantt.getTask(this.taskId).text : this.testSuiteSelected,
@@ -168,7 +169,10 @@ export class LightboxComponent{
           this.dateSelected = { startDate: selectedTask['start_date']!, endDate: selectedTask['end_date']! }
         }
         else{
-          // this.dateSelected = undefined
+          this.testSuiteSelected = undefined
+          this.firmwareVersionSelected = undefined
+          this.testPlanSelected = undefined
+          this.dateSelected = {endDate: new Date(), startDate: new Date()}
           }
         try{
           const taskParent = gantt.getTask(this.newTask.parent!)
