@@ -52,6 +52,7 @@ export class RegisterComponent implements OnInit {
                     // get return url from query parameters or default to home page
                     const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
                     this.router.navigateByUrl(returnUrl);
+                    window.location.reload()
                 },
                 error: error => {
                     console.log(error)

@@ -131,7 +131,8 @@ export class GanttComponent implements OnInit, OnDestroy {
     }
     
     ngOnInit() {
-        gantt.plugins({
+      console.log("======== GANTT INITIALIZED ========")  
+      gantt.plugins({
             auto_scheduling: true,
             tooltip: true,
             drag_timeline: true,

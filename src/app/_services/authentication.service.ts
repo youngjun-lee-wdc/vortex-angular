@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { DestroyRef, Injectable, destroyPlatform } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
@@ -43,10 +43,14 @@ export class AuthenticationService {
     }
 
     logout() {
+        console.log(this.user)
         // remove user from local storage to log user out
         localStorage.removeItem('user');
         this.userSubject.next(null!);
+        // console.log(this.userSubject)
+        
         this.router.navigate(['/login']);
+        window.location.reload()
     }
 
     register(username: string, password: string, firstName: string, lastName: string){
