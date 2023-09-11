@@ -19,7 +19,6 @@ import { TooltipDirective } from './tooltip.directive';
 import { ZoomDirective } from './zoom.directive';
 import { MinimapDirective } from './minimap.directive';
 import { LoginComponent } from './login';
-import { AdminComponent } from './admin';
 import { HomeComponent } from './home';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { RegisterComponent } from './register/register.component';
@@ -37,7 +36,6 @@ import { RegisterComponent } from './register/register.component';
     ZoomDirective,
     MinimapDirective,
     LoginComponent,
-    AdminComponent,
     HomeComponent,
     RegisterComponent
   ],
