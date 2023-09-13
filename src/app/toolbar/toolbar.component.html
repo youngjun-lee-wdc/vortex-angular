@@ -18,7 +18,7 @@
     data-disableScrolling="false"
   >
     <div class="offcanvas-header">
-      <h1 id="offcanvasRightLabel">Chart Settings</h1>
+      <h2 id="offcanvasRightLabel">Chart Settings</h2>
       <button
         type="button"
         class="btn-close text-reset"
@@ -28,7 +28,7 @@
     </div>
 
   <div class="offcanvas-header">
-    <h4 id="offcanvasRightLabel">Filter CPUs: </h4>
+    <h5 id="offcanvasRightLabel">Filter CPUs: </h5>
   </div>
   <input
   class="form-control"
@@ -64,7 +64,7 @@
   
 
   <div class="offcanvas-header">
-    <h4 id="offcanvasRightLabel">Zoom Settings: </h4>
+    <h5 id="offcanvasRightLabel">Zoom Settings: </h5>
   </div>
   <form [formGroup]="dateForm" (change)="dateUpdate()" class="dateForm">
     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -83,7 +83,7 @@
   </form>
 
     <div class="offcanvas-header">
-      <h4 id="offcanvasRightLabel">Extras: </h4>
+      <h5 id="offcanvasRightLabel">Extras: </h5>
     </div>   
     <ul class="list-group">   
         <a
@@ -184,7 +184,7 @@
 
     </ul>
     <div class="offcanvas-header">
-      <h4 id="offcanvasRightLabel">Theme: </h4>
+      <h5 id="offcanvasRightLabel">Theme: </h5>
     </div>
 
     <form [formGroup]="themeForm" (change)="toggleDarkMode()" class="list-group themeForm">

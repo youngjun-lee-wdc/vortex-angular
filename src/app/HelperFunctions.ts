@@ -1,4 +1,4 @@
-export const minutesToTime = (minutes:number) => {
+export const minutesToTime = (minutes:number) : string => {
     // when you're shrinking the time period of a task, it converts the time period going from days to hours to minutes depending on size 
     const formattedDays = Math.floor(minutes / 24 / 60);
     const formattedHours = Math.floor(minutes / 60 % 24);

@@ -48,7 +48,9 @@ import { RegisterComponent } from './register/register.component';
     NgxDaterangepickerMd.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    
+    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

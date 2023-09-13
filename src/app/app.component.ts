@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from './_services';
 import { User, Role } from './_models';
+import { Popover } from 'bootstrap';
+declare var $: any
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,7 +13,11 @@ export class AppComponent {
   user: User;
 
   constructor(private authenticationService: AuthenticationService) {
-      this.authenticationService.user.subscribe(x => this.user = x);
+      this.authenticationService.user.subscribe(x => this.user = x);     
+  }
+
+  ngAfterViewChecked() {
+    $('[data-bs-toggle="popover"]').popover({});
   }
 
   get isAdmin() {

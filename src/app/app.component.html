@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user">
+<!-- <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user">
     <div class="navbar-nav">
         <a class="nav-item nav-link" routerLink="/">Home</a>
         <a class="nav-item nav-link" routerLink="/admin" *ngIf="isAdmin">Admin</a>
@@ -15,7 +15,37 @@
         <i class="bi bi-gear"></i> Settings
     </button>
     <h1 class="vortexTitle">Vortex Portal</h1>
-</nav>
+</nav> -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="user">
+    <div class="container-fluid">
+      <!-- <a class="navbar-brand" href="#">vortex portal</a> -->
+      <h2 class="vortexTitle">Vortex Portal</h2>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-md-auto gap-2">
+            <li class="nav-item rounded">
+                <a href="#" class="nav-link" data-bs-toggle="popover" data-bs-trigger="hover" attr.data-bs-title='{{user.username}} - {{user.firstName}} {{user.lastName}}' attr.data-bs-content='Role: {{user.role}}' data-html="true"><i class="bi bi-people-fill me-2"></i>{{user.firstName}} {{user.lastName}}</a> 
+            </li>
+            <button
+                type="button"
+                class="btn btn-secondary settings"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasRight"
+                aria-controls="offcanvasRight"
+            >
+            <i class="bi bi-gear"></i>Settings
+            </button>
+            <li class="nav-item rounded">
+              <a class="nav-link" aria-current="page" href="#" (click)="logout()">Logout</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
 <app-toolbar></app-toolbar>
 
 <!-- main app container -->
