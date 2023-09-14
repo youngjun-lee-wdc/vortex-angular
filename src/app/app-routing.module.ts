@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { AuthGuard } from './_helpers';
-import { Role } from './_models';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [

@@ -55,10 +55,8 @@ export class RegisterComponent implements OnInit {
                     window.location.reload()
                 },
                 error: error => {
-                    console.log(error)
                     this.error = error;
                     this.loading = false;
-                    return
                 }
             });
     }

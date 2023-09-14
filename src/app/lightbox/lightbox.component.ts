@@ -4,16 +4,6 @@ import * as bootstrap from "bootstrap";
 import { Task, gantt } from 'opt/gantt_pro/codebase/dhtmlxgantt';
 declare var window: any;
 
-
-// interface TaskForm {
-//   testSuites: FormControl<any>
-//   firmwareVersionSelected: FormControl<any>
-//   testPlanSelected: FormControl<any>
-//   newTestPlan?: FormControl<any>
-//   dateSelected: FormControl<any>
-// }
-
-
 @Component({
   selector: 'app-lightbox',
   templateUrl: './lightbox.component.html',

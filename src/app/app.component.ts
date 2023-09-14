@@ -13,11 +13,16 @@ export class AppComponent {
   user: User;
 
   constructor(private authenticationService: AuthenticationService) {
-      this.authenticationService.user.subscribe(x => this.user = x);     
+      this.authenticationService.user.subscribe(x => this.user = x);
+      console.log("from app.component.ts", this.user)
+      // console.log(this.user.username)     
   }
 
   ngAfterViewChecked() {
-    $('[data-bs-toggle="popover"]').popover({});
+    $('[data-bs-toggle="popover"]').popover({
+      html: true,
+      sanitize: false
+    });
   }
 
   get isAdmin() {
@@ -27,5 +32,4 @@ export class AppComponent {
   logout() {
       this.authenticationService.logout();
   }
-
 }

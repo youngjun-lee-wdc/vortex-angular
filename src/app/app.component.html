@@ -27,7 +27,13 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-md-auto gap-2">
             <li class="nav-item rounded">
-                <a href="#" class="nav-link" data-bs-toggle="popover" data-bs-trigger="hover" attr.data-bs-title='{{user.username}} - {{user.firstName}} {{user.lastName}}' attr.data-bs-content='Role: {{user.role}}' data-html="true"><i class="bi bi-people-fill me-2"></i>{{user.firstName}} {{user.lastName}}</a> 
+                <a href="#" class="nav-link" data-bs-toggle="popover" data-bs-trigger="hover" attr.data-bs-title='{{user.username}} - {{user.firstName}} {{user.lastName}}' 
+                attr.data-bs-content="
+                <b>Role:</b> {{user.role}}</br>
+                <b>Username:</b> {{user.username}}</br>
+                <b>Name:</b> {{user.firstName}} {{user.lastName}}
+                "
+                 data-html="true"><i class="bi bi-people-fill me-2"></i>{{user.firstName}} {{user.lastName}}</a> 
             </li>
             <button
                 type="button"

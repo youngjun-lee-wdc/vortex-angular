@@ -4,10 +4,10 @@ html, body{
     height:100%;
     padding:0px;
     margin:0px;
-    font-family: 'Poppins';
+    /* font-family: 'Poppins'; */
 }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Montserrat }
 
 /* bootstrap css for drawer backdrop */
 .offcanvas-backdrop.fade.show{

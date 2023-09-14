@@ -37,7 +37,6 @@
 <div class="landing">
     <div class="login-form">    
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <!-- <div class="avatar"><i class="material-icons">&#xE7FF;</i></div> -->
             <img src="../../assets/WDC.png">
             <h2 >Login</h2>
 
@@ -56,8 +55,8 @@
                 </div>
             </div>
             <div class="form-group small clearfix">
-                <label class="checkbox-inline"><input type="checkbox"> Remember me</label>
-                <a href="#" class="forgot-link">Forgot Password?</a>
+                <label class="checkbox-inline"><input type="checkbox" (change)="rememberMeChecked()"> Remember me</label>
+                <a href="#" class="forgot-link" disabled>Forgot Password?</a>
             </div> 
             <button type="submit" [disabled]="loading" class="btn btn-primary btn-block btn-lg" value="Login"><span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Login</button>
             <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
