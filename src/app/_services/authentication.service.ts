@@ -33,11 +33,25 @@ export class AuthenticationService {
         .pipe(map(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem("token", user.token)
             this.userSubject.next(user);
             return user;
             }),
             catchError(this.handleError)
         )
+    }
+
+    tokenAuthenticate(token: string){
+        console.log("authenticate")
+        console.log(`${environment.apiUrl}/users/tokenAuthenticate`)
+        console.log(token)
+        // return this.http.post<any>(`${environment.apiUrl}/users/tokenAuthenticate`, { token })
+        return this.http.post<any>(`${environment.apiUrl}/users/tokenAuthenticate`, { token })
+        .pipe(map(user => {
+            console.log(user)
+            }),
+            catchError(this.handleError)
+        );
     }
 
     logout() {

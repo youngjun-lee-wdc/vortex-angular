@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
     submitted = false;
     error = '';
     rememberMe = false;
+    token = ""
 
     constructor(
         private formBuilder: FormBuilder,
@@ -23,14 +24,26 @@ export class LoginComponent implements OnInit {
         if (this.authenticationService.userValue) { 
             this.router.navigate(['/']);
         }
+        const loggedIn = localStorage.getItem("loggedIn")
+        if (loggedIn){
+            this.rememberMe = JSON.parse(loggedIn)
+            this.token = localStorage.getItem("token")!
+        }
     }
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required],
-            rememberMe: ['']
         });
+        if (this.rememberMe){
+            this.loginForm = this.formBuilder.group({
+                username: ['test51', Validators.required],
+                password: ['test', Validators.required],
+            });
+            this.authenticationService.tokenAuthenticate(this.token)
+        }
+        console.log(this.token)
     }
 
     public rememberMeChecked = () => {
@@ -44,15 +57,10 @@ export class LoginComponent implements OnInit {
         this.submitted = true;
 
         // stop here if form is invalid
-        if (this.loginForm.invalid) {
-            return;
-        }
+        if (this.loginForm.invalid) return
 
-        if (this.rememberMe){
-            localStorage.setItem('user', JSON.stringify(this.loginForm));
-            console.log("here")
-            return
-        }
+        localStorage.setItem("loggedIn", JSON.stringify(this.rememberMe) )
+        
 
         this.loading = true;
         this.authenticationService.login(this.f.username.value, this.f.password.value)

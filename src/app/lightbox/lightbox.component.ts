@@ -37,7 +37,7 @@ export class LightboxComponent{
       this.taskForm = this.fb.group({
         testSuite: ['', Validators.required],
         firmwareVersion: ['', Validators.required],
-        testPlan: ['', Validators.required],
+        testPlan: [''],
         newTestPlan: [''],
         dateSelected: ['', Validators.required]
       })
@@ -46,7 +46,7 @@ export class LightboxComponent{
     public showLightbox = (taskId: string | number, isNewTask: boolean) => {
       this.isNewTask = isNewTask
       const lightboxModal = document.getElementById("lightboxModal")
-      lightboxModal?.addEventListener('hidden.bs.modal', ()=>{
+      lightboxModal?.addEventListener('hidden.bs.modal', ()=> {
         gantt.showDate(new Date(Date.now() - ( 1* 3600 * 1000 * 24))); 
       })
       this.formModal = new window.bootstrap.Modal(
@@ -89,7 +89,6 @@ export class LightboxComponent{
 
     public saveTask(){
       if (this.taskForm.invalid){
-        console.log("invalid form")
         return
       }
 
@@ -153,8 +152,6 @@ export class LightboxComponent{
           this.testSuiteSelected = selectedTask['text']
           this.firmwareVersionSelected = selectedTask['FW_version']
           this.testPlanSelected = selectedTask['test_plan_dropdown']
-          // this.dateSelected.startDate = selectedTask['start_date']!
-          // this.dateSelected.endDate = selectedTask['end_date']!
           this.dateSelected = { startDate: selectedTask['start_date']!, endDate: selectedTask['end_date']! }
         }
         else{
@@ -192,6 +189,7 @@ export class LightboxComponent{
         for (let i=0;i<options.length; i++){
           uniqueOptions.push(options[i])
         }
+        uniqueOptions.push("Test Plan")
         this.uniqueTestPlans = uniqueOptions
       })
     }
