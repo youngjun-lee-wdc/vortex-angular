@@ -72,17 +72,13 @@
                 [timePicker]="true"
                 [timePickerIncrement]="15"
                 [timePicker24Hour]="true"
-                [locale]="{ format: 'DD/MM/YYYY HH:mm', firstDay: 1 }"
                 [(ngModel)]="dateSelected"
                 name = "timeRange"
                 class="form-control" 
                 id="testPeriod"
                 formControlName="dateSelected"
+                (datesUpdated) = "setTime($event)"
               />
-              <div *ngIf="taskForm.controls['dateSelected'].invalid" class="alert alert-danger">
-                <div *ngIf="taskForm.controls['dateSelected'].errors">
-                Name is required.
-              </div>
             </div>
               <div class="col s6" style="margin-top: 0.5em; margin-left: 0.25em">
                 Start Date: {{dateSelected.startDate}}
@@ -90,7 +86,6 @@
                 End Date: {{dateSelected.endDate}}
               </div>
             </div>
-          </div>
 
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="deleteTask()">Delete</button>

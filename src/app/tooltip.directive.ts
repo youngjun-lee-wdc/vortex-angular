@@ -32,6 +32,7 @@ export class TooltipDirective {
               TestPlan: task['test_plan_dropdown'],
               Firmware: task['FW_version'],
               StartTime: gantt.templates.tooltip_date_format(start),
+              // StartTime: start.toString(),
               Duration: minutesToTime(gantt.calculateDuration({start_date: start, end_date: end, task})),
               Status: task['status'],
           },

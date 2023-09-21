@@ -22,6 +22,77 @@ import { LoginComponent } from './login';
 import { HomeComponent } from './home';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { RegisterComponent } from './register';
+import {
+  IPublicClientApplication,
+  PublicClientApplication,
+  BrowserCacheLocation,
+  LogLevel,
+  InteractionType,
+} from '@azure/msal-browser';
+
+import {
+  MSAL_INSTANCE,
+  MSAL_INTERCEPTOR_CONFIG,
+  MsalInterceptorConfiguration,
+  MSAL_GUARD_CONFIG,
+  MsalGuardConfiguration,
+  MsalBroadcastService,
+  MsalService,
+  MsalGuard,
+  MsalRedirectComponent,
+  MsalModule,
+  MsalInterceptor,
+} from '@azure/msal-angular';
+
+const GRAPH_ENDPOINT = 'Enter_the_Graph_Endpoint_Herev1.0/me';
+
+const isIE =
+  window.navigator.userAgent.indexOf('MSIE ') > -1 ||
+  window.navigator.userAgent.indexOf('Trident/') > -1;
+
+export function loggerCallback(logLevel: LogLevel, message: string) {
+  console.log(message);
+}
+
+export function MSALInstanceFactory(): IPublicClientApplication {
+  return new PublicClientApplication({
+    auth: {
+      clientId: 'Enter_the_Application_Id_Here',
+      authority: 'Enter_the_Cloud_Instance_Id_HereEnter_the_Tenant_Info_Here',
+      redirectUri: 'Enter_the_Redirect_Uri_Here',
+    },
+    cache: {
+      cacheLocation: BrowserCacheLocation.LocalStorage,
+      storeAuthStateInCookie: isIE, // set to true for IE 11
+    },
+    system: {
+      loggerOptions: {
+        loggerCallback,
+        logLevel: LogLevel.Info,
+        piiLoggingEnabled: false,
+      },
+    },
+  });
+}
+
+export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
+  const protectedResourceMap = new Map<string, Array<string>>();
+  protectedResourceMap.set(GRAPH_ENDPOINT, ['user.read']);
+
+  return {
+    interactionType: InteractionType.Redirect,
+    protectedResourceMap,
+  };
+}
+
+export function MSALGuardConfigFactory(): MsalGuardConfiguration {
+  return {
+    interactionType: InteractionType.Redirect,
+    authRequest: {
+      scopes: ['user.read'],
+    },
+  };
+}
 
 
 @NgModule({
@@ -58,5 +129,6 @@ import { RegisterComponent } from './register';
   ],
   bootstrap: [AppComponent],
 })
+
 export class AppModule { }
                            

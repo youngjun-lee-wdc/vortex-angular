@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as bootstrap from "bootstrap";
 import { Task, gantt } from 'opt/gantt_pro/codebase/dhtmlxgantt';
+import * as dayjs from "dayjs"
 declare var window: any;
 
 @Component({
@@ -15,7 +16,6 @@ export class LightboxComponent{
     public testSuites: any;
     public dutOptions: any;
     public ngxDaterangepickerMd: any;
-    public minStartDate: any;
     public taskId: string | number
     public newTask: Task
     public testSuiteSelected: any
@@ -29,7 +29,6 @@ export class LightboxComponent{
     taskForm: FormGroup
 
     constructor(private fb: FormBuilder){
-      this.minStartDate = new Date().toISOString()
       this.dateSelected = {startDate: new Date(), endDate: new Date()}
     }
 
@@ -43,10 +42,20 @@ export class LightboxComponent{
       })
     }
     
+    setTime(event: any){
+      // console.log(event)
+      // console.log(event.startDate)
+      const startDateShift = new Date(event.startDate)
+      const endDateShift = new Date(event.endDate)
+      startDateShift.setHours(startDateShift.getHours() + 7)
+      endDateShift.setHours(endDateShift.getHours() + 7)
+      this.dateSelected = { startDate: startDateShift, endDate: endDateShift }
+    }
+
     public showLightbox = (taskId: string | number, isNewTask: boolean) => {
       this.isNewTask = isNewTask
       const lightboxModal = document.getElementById("lightboxModal")
-      lightboxModal?.addEventListener('hidden.bs.modal', ()=> {
+      lightboxModal?.addEventListener('hidden.bs.modal', () => {
         gantt.showDate(new Date(Date.now() - ( 1* 3600 * 1000 * 24))); 
       })
       this.formModal = new window.bootstrap.Modal(
@@ -72,8 +81,6 @@ export class LightboxComponent{
     }
     
     public cancel() {
-      let task = gantt.getTask(this.taskId);
-      gantt.deleteTask(task.id);
       this.hideLightbox();
     }
 
@@ -84,17 +91,14 @@ export class LightboxComponent{
       else {
         gantt.deleteTask(this.taskId);
       }
-        // gantt.hideLightbox();
     }
 
     public saveTask(){
       if (this.taskForm.invalid){
         return
       }
-
       
       if (this.isNewTask){
-        console.log("this.newTestPlan: ", this.newTestPlan)
         const taskToBeAdded = {
           parent: this.taskId,
           text: this.testSuiteSelected,
@@ -109,21 +113,7 @@ export class LightboxComponent{
           })
         }
         console.log(taskToBeAdded)
-        gantt.addTask({
-          parent: this.taskId,
-          text: this.testSuiteSelected,
-          test_plan_dropdown : this.testPlanSelected,
-          test_plan_writein: this.newTestPlan,
-          FW_version: this.firmwareVersionSelected,
-          start_date: new Date(this.dateSelected.startDate),
-          end_date: new Date(this.dateSelected.endDate),
-          duration: gantt.calculateDuration({
-            start_date: new Date(this.dateSelected.startDate),
-            end_date: new Date(this.dateSelected.endDate)
-          })
-        })
-        // const returnAdd = gantt.addTask(taskToBeAdded)
-        // console.log(returnAdd)
+        gantt.addTask(taskToBeAdded)
       }
 
       else{
@@ -145,7 +135,6 @@ export class LightboxComponent{
 
 
     private initLightBox(){
-
         // restore values for selected test configs and populate dropdown before lightbox is shown
         if (!this.isNewTask){
           const selectedTask = gantt.getTask(this.taskId)
@@ -154,9 +143,6 @@ export class LightboxComponent{
           this.testPlanSelected = selectedTask['test_plan_dropdown']
           this.dateSelected = { startDate: selectedTask['start_date']!, endDate: selectedTask['end_date']! }
         }
-        else{
-          // this.dateSelected = undefined
-          }
         try{
           const taskParent = gantt.getTask(this.newTask.parent!)
           const serverName = gantt.serverList(taskParent.text)

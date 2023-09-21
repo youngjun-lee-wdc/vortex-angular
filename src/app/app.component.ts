@@ -15,10 +15,11 @@ export class AppComponent {
   constructor(private authenticationService: AuthenticationService) {
       this.authenticationService.user.subscribe(x => this.user = x);
       console.log("from app.component.ts", this.user)
-      // console.log(this.user.username)     
+      // console.log(this.user.username)
+           
   }
 
-  ngAfterViewChecked() {
+  ngAfterContentChecked() {
     $('[data-bs-toggle="popover"]').popover({
       html: true,
       sanitize: false

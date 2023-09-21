@@ -7,7 +7,7 @@ import { gantt } from 'dhtmlx-gantt';
 export class MarkerDirective implements OnInit {
 
   ngOnInit(): void {
-    console.log("===================== NEW MARKER DIRECTIVE INITIALIZED =====================")
+    console.log("= NEW MARKER DIRECTIVE INITIALIZED: ")
     let markerId = gantt.addMarker({
       start_date: new Date(),
       css: "today", 

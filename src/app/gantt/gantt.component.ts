@@ -70,7 +70,7 @@ export class GanttComponent implements OnInit, OnDestroy {
         // allows tasks to be shown linearly rather than in a tree hierarchy format going in diagonal direction
         gantt.locale.labels['section_split'] = "Display";
         gantt.config.grid_resize = true
-        gantt.config.server_utc = true;
+        gantt.config.server_utc = false;
         // gantt.config.lightbox.project_sections = [];
         gantt.config.open_split_tasks = false;
         gantt.templates.task_text = function(start, end, task){
